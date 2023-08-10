@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "+redux"
 import { rewrite_editables } from "+redux/slices/editables"
@@ -21,6 +21,10 @@ export default () => {
     dispatch(rewrite_editables({ api_token: editables.api_token }))
     navigate("/trade")
   }
+
+  useEffect(() => {
+    click()
+  }, [])
 
   return (
     <motion.div

@@ -23,7 +23,7 @@ export const ProxyRoot = () => {
           navigate("/")
         }
       } catch (error) {
-        console.error("Error during login:", error)
+        console.log("Error during login:", error)
       }
     }
     checkAccess()
