@@ -1,0 +1,23 @@
+@media (prefers-color-scheme: dark) {
+  .___single-value {
+    color: #ffffffde !important;
+  }
+
+  .___control {
+    background-color: #242424 !important;
+    border-color: #999 !important;
+  }
+
+  .___menu {
+    background-color: #242424 !important;
+  }
+
+  .___option--is-focused {
+    background-color: #3d3b3b !important;
+  }
+
+  .___option--is-selected {
+    background-color: #fff !important;
+    color: #242424 !important;
+  }
+}
