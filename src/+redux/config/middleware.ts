@@ -34,6 +34,7 @@ const writeLocalStorage: Middleware = (store) => {
 export const localStorageMiddleware = debounce(writeLocalStorage, 1000)
 
 export default (run: CurriedGetDefaultMiddleware<Initial>) => {
-  if (isSafari) return run().concat(logger).concat(writeLocalStorage)
+  if (isSafari && import.meta.env.DEV)
+    return run().concat(logger).concat(writeLocalStorage)
   return run().concat(writeLocalStorage)
 }
