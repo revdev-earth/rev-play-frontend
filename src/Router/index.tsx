@@ -10,8 +10,8 @@ import Auth from "./routes/Auth"
 import { ProxyRoot } from "./fragments/ProxyRoot"
 import Access from "./routes/Access"
 import Trade from "./routes/Trade"
-import Instructions from "./routes/public/Instructions"
-import TermsAndConditions from "./routes/public/TermsAndConditions"
+import Instructions from "./routes/public_route/Instructions"
+import TermsAndConditions from "./routes/public_route/TermsAndConditions"
 
 const Perfil = Home
 const Interactua = Home
