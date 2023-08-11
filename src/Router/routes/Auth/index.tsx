@@ -157,6 +157,8 @@ const Auth = () => {
         navigate("/access")
       } else {
         console.log("vip code failed", await response.json())
+        setError("vip code failed, try again")
+        cleanErrorIn5s()
       }
     } catch (error) {
       console.log("Error during login:", error)
