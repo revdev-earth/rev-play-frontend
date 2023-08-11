@@ -23,7 +23,7 @@ const Home = () => {
             isPending ? "pending" : isActive ? "active" : ""
           }
         >
-          Login
+          In
         </NavLink>
       </div>
       <div>Rev Trade</div>
