@@ -6,9 +6,7 @@ export const close = (event: Event) => {
     console.log(":: socket ticks closed : ", event)
     console.log(JSON.stringify(event, null, 2))
 
-    setTimeout(() => {
-      location.reload()
-    }, 1000)
+    // setTimeout(() => { location.reload() }, 1000)
   }
-  // connect()
+  connect()
 }

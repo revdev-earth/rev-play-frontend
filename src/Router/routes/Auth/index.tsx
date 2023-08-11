@@ -13,11 +13,11 @@ const initial_state = {
   vipCode: ""
 }
 
-const labelStyle = "flex flex-col gap-4 relative group cursor-default"
+const labelStyle = "flex flex-col gap-4 relative mt-6 group cursor-default"
 const textStyle =
-  "absolute text-sm opacity-50 z-10 group-hover:-top-5 group-hover:left-0 transition-all cursor-default"
+  "absolute opacity-70 z-10 group-hover:-top-6 group-hover:left-0 transition-all cursor-default"
 const inputStyle =
-  "border border-solid rounded px-2 py-1 transition-all duration-300 focus:outline-none focus:border-blue-500 cursor-default"
+  "border border-solid rounded px-2 pt-2 pb-2 transition-all duration-300 focus:outline-none focus:border-blue-500 cursor-default"
 
 const Auth = () => {
   const dispatch = useDispatch()
@@ -171,7 +171,7 @@ const Auth = () => {
       : clickCodeVip()
 
   const textStyleAction = (length: number) =>
-    textStyle + (length > 0 ? " -top-5 left-0" : " top-1 left-3")
+    textStyle + (length > 0 ? " -top-6 left-0" : " top-2 left-3")
 
   const nickOrEmail = () => {
     setLoading(true)
@@ -242,41 +242,57 @@ const Auth = () => {
       )}
 
       {!isUserChecked && (
-        <motion.label
-          initial={{
-            opacity: 0,
-            height: 0
-          }}
-          animate={{
-            opacity: 1,
-            height: "auto",
-            transition: {
-              duration: 0.5
-            }
-          }}
-          htmlFor="nick_or_email"
-          className={labelStyle}
-        >
-          <div className={textStyleAction(auth.nick_or_email.length)}>
-            nick or email
+        <>
+          <div className="opacity-70">
+            Let's make sure your nick or email are registed
           </div>
-          <div className="flex gap-3">
-            <input
-              name="nick_or_email"
-              type="text"
-              onChange={inputChange}
-              value={auth.nick_or_email}
-              className={inputStyle}
-              disabled={isUserChecked}
-            />
-            <button className="px-2 py-0" onClick={nickOrEmail}>
-              {!loading ? "✓" : "🤔"}
-            </button>
-          </div>
-        </motion.label>
+          <motion.label
+            initial={{
+              opacity: 0,
+              height: 0
+            }}
+            animate={{
+              opacity: 1,
+              height: "auto",
+              transition: {
+                duration: 0.5
+              }
+            }}
+            htmlFor="nick_or_email"
+            className={labelStyle}
+          >
+            <div className={textStyleAction(auth.nick_or_email.length)}>
+              nick or email
+            </div>
+            <div className="flex gap-3">
+              <input
+                name="nick_or_email"
+                type="text"
+                onChange={inputChange}
+                value={auth.nick_or_email}
+                className={inputStyle}
+                disabled={isUserChecked}
+              />
+              <button className="px-2 py-0" onClick={nickOrEmail}>
+                {!loading ? "✓" : "🤔"}
+              </button>
+            </div>
+          </motion.label>
+        </>
       )}
       {isUserChecked && (
         <>
+          <div className="flex flex-col gap-1 opacity-70 text-center">
+            {userExist ? (
+              <div>Let us in</div>
+            ) : (
+              <>
+                <div>It looks like your are not regited.</div>
+                <div>Let us begin here.</div>
+              </>
+            )}
+          </div>
+
           {((isNick && userExist) || !userExist) && (
             <motion.label
               initial={{
