@@ -275,6 +275,7 @@ const Auth = () => {
                 className={inputStyle}
                 disabled={isUserChecked}
                 onKeyDown={(e) => e.key === "Enter" && nickOrEmail()}
+                autoFocus
               />
               <button
                 className="px-2 py-0 transition-all"
@@ -381,6 +382,7 @@ const Auth = () => {
               onKeyDown={(e) =>
                 e.key === "Enter" && !vipCodeActive && inClick()
               }
+              autoFocus
             />
           </motion.label>
 
@@ -410,6 +412,7 @@ const Auth = () => {
                 onKeyDown={(e) => e.key === "Enter" && inClick()}
                 value={auth.vipCode}
                 className={inputStyle}
+                autoFocus
               />
             </motion.label>
           )}
