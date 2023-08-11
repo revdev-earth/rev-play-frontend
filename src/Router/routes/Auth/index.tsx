@@ -246,7 +246,7 @@ const Auth = () => {
       {!isUserChecked && (
         <>
           <div className="opacity-70">
-            Let's make sure your nick or email are registed
+            Let's ensure that your nick or email is registered.
           </div>
           <motion.label
             initial={{
@@ -294,8 +294,8 @@ const Auth = () => {
               <div>Let us in</div>
             ) : (
               <>
-                <div>It looks like your are not regited.</div>
-                <div>Let us begin here.</div>
+                <div>It looks like you are not registered.</div>
+                <div>Let's start here.</div>
               </>
             )}
           </div>

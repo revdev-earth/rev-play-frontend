@@ -11,7 +11,7 @@ import "./styles"
 
 const root = document.getElementById("root") as HTMLDivElement
 
-fetch(import.meta.env.BASE_URL)
+fetch(import.meta.env.VITE_BACK_URL)
 
 createRoot(root).render(
   <ErrorBoundary children={<Provider {...{ children: Router }} />} />

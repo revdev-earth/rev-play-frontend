@@ -27,8 +27,9 @@ const Home = () => {
       </div>
 
       <footer className="flex flex-col gap-4 h-60 items-center justify-end pb-10">
-        <div>
-          <a>terms and service</a>
+        <div className="flex gap-4">
+          <Link to="public/terms_and_conditions">terms and service</Link>
+          <Link to="public/instructions">Instructions</Link>
         </div>
         <div>Todos los derechos Reservdos - RevDev</div>
       </footer>

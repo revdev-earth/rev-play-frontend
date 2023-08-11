@@ -13,7 +13,7 @@ export const message = (messageEvent: MessageEvent<string>) => {
 
   const data = JSON.parse(messageEvent.data) as Data
 
-  if (data.error) console.log("socket ticks message : ", data)
+  if (data.error) console.log("socket observador message : ", data)
 
   /* if (state.logs.show_message_logs)
     console.log(":: socket message data : ", data); */

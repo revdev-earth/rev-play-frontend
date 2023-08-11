@@ -6,11 +6,11 @@ import Grafica from "./fragments/Grafica"
 import "./Trade.css"
 import Collapsible from "./fragments/Collapsible"
 import LaBotonera from "./fragments/LaBotonera"
-import observador from "sockets/observador"
+// import observador from "sockets/observador"
 import comprador from "sockets/comprador"
 
 const Sockets = () => {
-  observador()
+  // observador()
   comprador()
   return null
 }

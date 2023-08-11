@@ -28,7 +28,7 @@ export const message = (messageEvent: MessageEvent<string>) => {
   // console.log(data.msg_type)
   // console.log(data)
 
-  if (data.error) console.log("socket comercial message : ", { data })
+  if (data.error) console.log("socket comprador message : ", { data })
 
   // console.log(":: socket message data : ", data);
   if (state.logs.show_message_logs)

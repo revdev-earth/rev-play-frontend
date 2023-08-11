@@ -10,12 +10,13 @@ import Auth from "./routes/Auth"
 import { ProxyRoot } from "./fragments/ProxyRoot"
 import Access from "./routes/Access"
 import Trade from "./routes/Trade"
+import Instructions from "./routes/public/Instructions"
+import TermsAndConditions from "./routes/public/TermsAndConditions"
 
 const Perfil = Home
 const Interactua = Home
 const Sorteos = Home
 const Public = Home
-const TermsAndConditions = Home
 const NotFound = Home
 
 const routes: RouteObject[] = [
@@ -82,6 +83,10 @@ const routes: RouteObject[] = [
       {
         path: "sorteos",
         element: <Sorteos />
+      },
+      {
+        path: "instructions",
+        element: <Instructions />
       }
     ]
   },
