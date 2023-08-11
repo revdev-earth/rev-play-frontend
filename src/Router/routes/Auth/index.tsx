@@ -29,10 +29,12 @@ const Auth = () => {
   const [vipCodeActive, setVipCodeActive] = useState(false)
   const [userExist, setUserExist] = useState(false)
 
-  const [buttonLoading, setButtonLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const [isUserChecked, setIsUserChecked] = useState(false)
   const [isNick, setIsNick] = useState(false)
+
+  const [error, setError] = useState("")
 
   const checkUser = useCallback(async (nick: string) => {
     try {
@@ -45,11 +47,15 @@ const Auth = () => {
         }
       )
       // const res = (await response.json()) as { message: string }
+      console.log({ ok: response.ok })
       setUserExist(response.ok)
       setIsUserChecked(true)
-      setButtonLoading(false)
+      setLoading(false)
     } catch (error) {
       console.log("Error during login:", error)
+      setError("An error occurred during user check, try later.")
+      setLoading(false)
+      cleanErrorIn5s()
     }
   }, [])
 
@@ -61,6 +67,7 @@ const Auth = () => {
   }
 
   const clickLogin = async () => {
+    setLoading(true)
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACK_URL}/auth/login`,
@@ -68,6 +75,7 @@ const Auth = () => {
           method: "POST",
           body: JSON.stringify({
             nick: auth.nick,
+            email: auth.email,
             password: auth.password
           }),
           headers: { "Content-Type": "application/json" }
@@ -81,13 +89,19 @@ const Auth = () => {
         setTokenLogin(res.token)
       } else {
         console.log("Login failed", res)
+        setError("Seems there was a write mistake, there are two tries left")
+        cleanErrorIn5s()
       }
+      setLoading(false)
     } catch (error) {
       console.log("Error during login:", error)
+      setLoading(false)
     }
   }
 
   const clickRegister = async () => {
+    setLoading(true)
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACK_URL}/auth/register`,
@@ -109,9 +123,13 @@ const Auth = () => {
         setTokenLogin(res.token)
       } else {
         console.log("Login failed", res)
+        setError("Seems there was error")
+        cleanErrorIn5s()
       }
+      setLoading(false)
     } catch (error) {
       console.log("Error during login:", error)
+      setLoading(false)
     }
   }
 
@@ -156,7 +174,7 @@ const Auth = () => {
     textStyle + (length > 0 ? " -top-5 left-0" : " top-1 left-3")
 
   const nickOrEmail = () => {
-    setButtonLoading(true)
+    setLoading(true)
     const isEmail = auth.nick_or_email.includes("@")
     setIsNick(!isEmail)
     setAuth((prevState) => ({
@@ -164,6 +182,12 @@ const Auth = () => {
       [isEmail ? "email" : "nick"]: auth.nick_or_email
     }))
     checkUser(auth.nick_or_email)
+  }
+
+  const cleanErrorIn5s = () => {
+    setTimeout(() => {
+      setError("")
+    }, 5000)
   }
 
   return (
@@ -179,6 +203,44 @@ const Auth = () => {
         }
       }}
     >
+      {error && (
+        <motion.p
+          initial={{
+            opacity: 0,
+            height: 0
+          }}
+          animate={{
+            opacity: 1,
+            height: "auto",
+            transition: {
+              duration: 0.5
+            }
+          }}
+          className="text-red-500"
+        >
+          {error}
+        </motion.p>
+      )}
+
+      {loading && (
+        <motion.p
+          initial={{
+            opacity: 0,
+            height: 0
+          }}
+          animate={{
+            opacity: 1,
+            height: "auto",
+            transition: {
+              duration: 0.5
+            }
+          }}
+          className="text-blue-500"
+        >
+          request is loading, please wait 😃
+        </motion.p>
+      )}
+
       {!isUserChecked && (
         <motion.label
           initial={{
@@ -208,15 +270,14 @@ const Auth = () => {
               disabled={isUserChecked}
             />
             <button className="px-2 py-0" onClick={nickOrEmail}>
-              {!buttonLoading ? "✓" : "🖕🏽"}
+              {!loading ? "✓" : "🤔"}
             </button>
           </div>
         </motion.label>
       )}
-
       {isUserChecked && (
         <>
-          {isNick && (
+          {((isNick && userExist) || !userExist) && (
             <motion.label
               initial={{
                 opacity: 0,
@@ -243,7 +304,7 @@ const Auth = () => {
             </motion.label>
           )}
 
-          {!isNick && (
+          {((!isNick && userExist) || !userExist) && (
             <motion.label
               initial={{
                 opacity: 0,
@@ -259,7 +320,7 @@ const Auth = () => {
               htmlFor="email"
               className={`${labelStyle}`}
             >
-              <div className={textStyleAction(auth.password.length)}>Email</div>
+              <div className={textStyleAction(auth.email.length)}>Email</div>
               <input
                 name="email"
                 type="email"
@@ -337,7 +398,7 @@ const Auth = () => {
           transition-all
         "
           >
-            {!buttonLoading ? "in" : "...🫷🏽😃🫸🏽..."}
+            {!loading ? "in" : "...🫷🏽😃🫸🏽..."}
           </button>
         </>
       )}
