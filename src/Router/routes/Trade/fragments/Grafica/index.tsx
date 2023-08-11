@@ -7,17 +7,20 @@ export default function () {
   const { symbol } = useSelector((s) => s.editables)
   const [history, setHistory] = useState<any[]>([])
   const [isConnected, setIsConnected] = useState(false)
-  const [error, setError] = useState<Event>()
+  const [error, setError] = useState(false)
 
   useEffect(() => {
+    console.log(":: run connect graphic")
     connectWebSocket()
-  }, [error])
+  }, [])
 
   const connectWebSocket = () => {
     const url = "wss://ws.binaryws.com/websockets/v3?app_id=1089"
     const ws = new WebSocket(url)
 
     ws.onopen = () => {
+      setError(false)
+      console.log(":: socket grapich open : ")
       setIsConnected(true)
 
       const history = {
@@ -57,11 +60,14 @@ export default function () {
     }
 
     ws.onclose = () => {
+      console.log(":: socket grapich closed : ")
       setIsConnected(false)
+      connectWebSocket()
     }
 
     ws.onerror = (error) => {
-      setError(error)
+      console.log(":: socket grapich error : ", error)
+      setError(true)
       ws.close()
     }
   }
@@ -74,12 +80,9 @@ export default function () {
     })
   }
 
-  if (!isConnected) return <motion.div>Connecting to WebSocket...</motion.div>
+  if (!isConnected) return <motion.div>Working ...</motion.div>
 
-  if (error)
-    return (
-      <motion.div layout>error {JSON.stringify(error, null, 2)}</motion.div>
-    )
+  if (error) return <motion.div layout>Something get wrong</motion.div>
 
   return <Chart yValues={history} />
 }

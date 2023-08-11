@@ -10,9 +10,9 @@ interface CollapsibleProps {
 export default ({
   label,
   children,
-  isOpen: _isOpen = false
+  isOpen: isOpenIncoming = false
 }: CollapsibleProps) => {
-  const [isOpen, setIsOpen] = useState(_isOpen)
+  const [isOpen, setIsOpen] = useState(isOpenIncoming)
 
   const toggleIsOpen = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen)
@@ -28,6 +28,11 @@ export default ({
         {label}
       </motion.label>
       <motion.div
+        initial={{
+          height: 0,
+          opacity: 0,
+          overflow: "hidden"
+        }}
         animate={{
           height: isOpen ? "auto" : 0,
           opacity: isOpen ? 1 : 0,
