@@ -22,6 +22,4 @@ const connect = () => {
   state.WebSockets.observador = ws
 }
 
-export default () => {
-  connect()
-}
+export default connect

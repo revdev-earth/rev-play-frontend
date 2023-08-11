@@ -34,6 +34,4 @@ const connect = () => {
 /**
  * Default function to initiate the WebSocket connection
  */
-export default () => {
-  connect() // Calling the connect function to establish the WebSocket connection
-}
+export default connect
