@@ -11,7 +11,7 @@ export default function () {
 
   useEffect(() => {
     connectWebSocket()
-  }, [])
+  }, [error])
 
   const connectWebSocket = () => {
     const url = "wss://ws.binaryws.com/websockets/v3?app_id=1089"
@@ -58,7 +58,6 @@ export default function () {
 
     ws.onclose = () => {
       setIsConnected(false)
-      connectWebSocket()
     }
 
     ws.onerror = (error) => {
