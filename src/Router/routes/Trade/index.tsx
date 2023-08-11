@@ -9,6 +9,8 @@ import LaBotonera from "./fragments/LaBotonera"
 import observador from "sockets/observador"
 import comprador from "sockets/comprador"
 
+import { motion } from "framer-motion"
+
 const Sockets = () => {
   observador()
   comprador()
@@ -19,7 +21,19 @@ export default () => (
   <div className={`trade flex flex-col gap-2 my-5 items-center w-4/5`}>
     <Sockets />
 
-    <div className="flex items-center gap-3">
+    <motion.div
+      className="flex items-center gap-3"
+      initial={{
+        opacity: 0
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          duration: 2,
+          delay: 1
+        }
+      }}
+    >
       <div>
         <div className="flex items-center w-full">
           <Collapsible label="Market">
@@ -38,6 +52,6 @@ export default () => (
       </div>
 
       <LaBotonera />
-    </div>
+    </motion.div>
   </div>
 )
