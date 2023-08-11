@@ -13,7 +13,7 @@ const initial_state = {
   vipCode: ""
 }
 
-const labelStyle = "flex flex-col gap-4 relative mt-6 group cursor-default"
+const labelStyle = "flex flex-col gap-4 relative mt-5 group cursor-default"
 const textStyle =
   "absolute opacity-70 z-10 group-hover:-top-6 group-hover:left-0 transition-all cursor-default"
 const inputStyle =
@@ -272,8 +272,13 @@ const Auth = () => {
                 value={auth.nick_or_email}
                 className={inputStyle}
                 disabled={isUserChecked}
+                onKeyDown={(e) => e.key === "Enter" && nickOrEmail()}
               />
-              <button className="px-2 py-0" onClick={nickOrEmail}>
+              <button
+                className="px-2 py-0 transition-all"
+                onClick={nickOrEmail}
+                disabled={auth.nick_or_email.length === 0}
+              >
                 {!loading ? "✓" : "🤔"}
               </button>
             </div>
@@ -371,6 +376,9 @@ const Auth = () => {
               onChange={inputChange}
               value={auth.password}
               className={inputStyle}
+              onKeyDown={(e) =>
+                e.key === "Enter" && !vipCodeActive && inClick()
+              }
             />
           </motion.label>
 
@@ -397,6 +405,7 @@ const Auth = () => {
                 name="vipCode"
                 type="password"
                 onChange={inputChange}
+                onKeyDown={(e) => e.key === "Enter" && inClick()}
                 value={auth.vipCode}
                 className={inputStyle}
               />
@@ -405,12 +414,17 @@ const Auth = () => {
 
           <button
             type="button"
+            disabled={
+              (!vipCodeActive && auth.password.length === 0) ||
+              (vipCodeActive && auth.vipCode.length === 0)
+            }
             onClick={inClick}
-            className="
+            className=" 
           relative py-2 px-4 opacity-50 border-2 rounded
           bg-blue-500 text-white  
           hover:bg-blue-300 hover:text-black hover:border-yellow-700 
           hover:font-bold focus:outline-none focus:ring focus:ring-blue-300 
+          disabled:hover:bg-blue-500 disabled:hover:text-white disabled:hover:font-normal disabled:hover:border-transparent
           transition-all
         "
           >
