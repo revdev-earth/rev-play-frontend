@@ -22,7 +22,7 @@ export default () => (
     <div className="flex items-center gap-3">
       <div>
         <div className="flex items-center w-full">
-          <Collapsible label="La Grafica" isOpen>
+          <Collapsible label="Market">
             <Grafica />
           </Collapsible>
         </div>
@@ -32,7 +32,7 @@ export default () => (
           <Information />
         </Collapsible>
 
-        <Collapsible label="Compras">
+        <Collapsible label="Trades">
           <Purchases />
         </Collapsible>
       </div>

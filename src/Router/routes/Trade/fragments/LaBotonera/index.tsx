@@ -19,7 +19,7 @@ export default () => {
         opacity: 1,
         transition: {
           duration: 2,
-          delay: 2
+          delay: 1
         }
       }}
     >
