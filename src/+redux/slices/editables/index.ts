@@ -8,7 +8,10 @@ const editables_slice = createSlice({
   name: "editables",
   initialState: initial.editables,
   reducers: {
-    rewrite_editables: (state, { payload }) => ({
+    rewrite_editables: (
+      state,
+      { payload }: { payload: Partial<(typeof initial)["editables"]> }
+    ) => ({
       ...state,
       ...payload
     })

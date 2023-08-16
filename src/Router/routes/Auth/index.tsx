@@ -154,7 +154,16 @@ const Auth = () => {
         }
 
         dispatch(set_session_token({ sessionToken: token, sessionExpiresIn }))
-        navigate("/access")
+
+        if (import.meta.env.DEV) {
+          navigate(`${import.meta.env.VITE_DERIV}`)
+        } else {
+          window.location.replace(
+            `https://oauth.binary.com/oauth2/authorize?app_id=${
+              import.meta.env.VITE_APP_ID
+            }`
+          )
+        }
       } else {
         console.log("vip code failed", await response.json())
         setError("vip code failed, try again")

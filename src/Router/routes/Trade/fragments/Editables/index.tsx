@@ -122,7 +122,11 @@ export const Editables = () => {
             name="currency"
             onChange={change_select}
             options={options_currency}
-            defaultValue={options_currency[0]}
+            // defaultValue={options_currency[0]}
+            defaultValue={{
+              label: editables.currency,
+              value: editables.currency
+            }}
           />
         </div>
       </div>

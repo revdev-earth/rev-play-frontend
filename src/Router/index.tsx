@@ -12,6 +12,7 @@ import Access from "./routes/Access"
 import Trade from "./routes/Trade"
 import Instructions from "./routes/public_route/Instructions"
 import TermsAndConditions from "./routes/public_route/TermsAndConditions"
+import Deriv from "./routes/Deriv"
 
 const Perfil = Home
 const Interactua = Home
@@ -45,8 +46,8 @@ const routes: RouteObject[] = [
     element: <ProxyRoot />,
     children: [
       {
-        path: "login",
-        element: <Access />
+        path: "deriv",
+        element: <Deriv />
       },
       {
         path: "access",

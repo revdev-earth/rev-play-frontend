@@ -7,22 +7,24 @@ interface Compras {
 }
 
 export const state = {
+  activeAccount: 0,
+  deriv: [] as { acct: any; cur: any; token: any }[],
   authorize: {} as Authorize,
   isAuthorized: false,
 
   internal: {
     contract_type: "",
 
-    multiplicador_del_balance_a_usar: 0.0007,
+    multiplicador_del_balance_a_usar: 0.0018,
 
     initial_amount: 0.35,
     amount: 0.35,
 
-    max_loss_count: 9,
+    max_loss_count: 8,
 
-    multiplicador1: 2.5,
-    multiplicador2: 2.15,
-    multiplicador3: 2.14,
+    multiplicador1: 2.25,
+    multiplicador2: 2.25,
+    multiplicador3: 2.25,
 
     can_buy: false,
     el_arranque_de_compra: true

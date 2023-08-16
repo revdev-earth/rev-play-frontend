@@ -42,15 +42,15 @@ export const make_proposals = () => {
     console.log(" > Caso de estudio amount :", state.internal.amount)
   }
 
-  const common = {
+  const common_proposal = {
+    subscribe: 1,
     proposal: 1,
     amount:
       state.internal.amount < min_amount ? min_amount : state.internal.amount,
-    duration: 1,
-    duration_unit: "t",
-    currency: "USD",
-    symbol: store.getState().editables.symbol,
-    subscribe: 1
+    duration: store.getState().editables.duration,
+    duration_unit: store.getState().editables.duration_unit,
+    currency: store.getState().editables.currency,
+    symbol: store.getState().editables.symbol
   }
   const basis_payout = {
     basis: "payout"
@@ -60,12 +60,12 @@ export const make_proposals = () => {
   }
   const proposal_call = {
     contract_type: "CALL",
-    ...common,
+    ...common_proposal,
     ...basis_strake
   }
   const proposal_put = {
     contract_type: "PUT",
-    ...common,
+    ...common_proposal,
     ...basis_strake
   }
   send(proposal_call)

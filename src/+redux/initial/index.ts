@@ -1,10 +1,12 @@
 import type { PurchaseRedux } from "types"
 
-interface Access {
+export interface Access {
   sessionToken: string
   sessionExpiresIn: number
   api_token: string
   user_token: string
+
+  deriv: { acct: any; cur: any; token: any }[]
 }
 
 const initial = {
@@ -35,7 +37,7 @@ const initial = {
   },
 
   editables: {
-    balance_to_use: 500,
+    balance_to_use: 200,
     duration_unit: "t",
     duration: 1,
     symbol: "1HZ50V",
