@@ -1,10 +1,12 @@
 import { stop, pausa, play } from "+local"
 import { useNavigate } from "react-router-dom"
+import { logoutDeriv } from "sockets/comprador/sends"
 
 export default () => {
   const navigate = useNavigate()
   const logOut = () => {
     localStorage.removeItem("state")
+    if (import.meta.env.PROD) logoutDeriv()
     navigate("/")
   }
 

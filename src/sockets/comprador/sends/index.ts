@@ -160,3 +160,8 @@ export const buy = () => {
 
   send(purchase_msg)
 }
+
+// logout deriv
+export const logoutDeriv = () => {
+  send({ logout: 1 })
+}
