@@ -19,14 +19,23 @@ const textStyle =
 const inputStyle =
   "border border-solid rounded px-2 pt-2 pb-2 transition-all duration-300 focus:outline-none focus:border-blue-500 cursor-default"
 
+interface Response {
+  token: string
+  sessionExpiresIn: number
+}
+
+interface Error {
+  message: string
+  error: string
+  statusCode: number
+}
+
 const Auth = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [auth, setAuth] = useState(initial_state)
-  const [tokenLogin, setTokenLogin] = useState<string>()
 
-  const [vipCodeActive, setVipCodeActive] = useState(false)
   const [userExist, setUserExist] = useState(false)
 
   const [loading, setLoading] = useState(false)
@@ -82,14 +91,12 @@ const Auth = () => {
         }
       )
 
-      const res = (await response.json()) as { token: string }
+      const res = (await response.json()) as Response | Error
 
       if (response.ok) {
-        setVipCodeActive(true)
-        setTokenLogin(res.token)
+        tokenProcess(res as Response)
       } else {
-        console.log("Login failed", res)
-        setError("Seems there was a write mistake, there are two tries left")
+        setError("It looks like there is a problem.")
         cleanErrorIn5s()
       }
       setLoading(false)
@@ -116,11 +123,13 @@ const Auth = () => {
         }
       )
 
-      const res = (await response.json()) as { token: string }
+      const res = (await response.json()) as {
+        token: string
+        sessionExpiresIn: number
+      }
 
       if (response.ok) {
-        setVipCodeActive(true)
-        setTokenLogin(res.token)
+        tokenProcess(res)
       } else {
         console.log("Login failed", res)
         setError("Seems there was error")
@@ -133,53 +142,27 @@ const Auth = () => {
     }
   }
 
-  const clickCodeVip = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACK_URL}/auth/vipCode`,
-        {
-          method: "POST",
-          body: JSON.stringify({ vipCode: auth.vipCode }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenLogin}`
-          }
-        }
+  const tokenProcess = async ({
+    token,
+    sessionExpiresIn
+  }: {
+    token: string
+    sessionExpiresIn: number
+  }) => {
+    dispatch(set_session_token({ sessionToken: token, sessionExpiresIn }))
+
+    if (import.meta.env.DEV) {
+      navigate(`${import.meta.env.VITE_DERIV}`)
+    } else {
+      window.location.replace(
+        `https://oauth.binary.com/oauth2/authorize?app_id=${
+          import.meta.env.VITE_APP_ID
+        }`
       )
-
-      if (response.ok) {
-        const { token, sessionExpiresIn } = (await response.json()) as {
-          token: string
-          sessionExpiresIn: number
-        }
-
-        dispatch(set_session_token({ sessionToken: token, sessionExpiresIn }))
-
-        if (import.meta.env.DEV) {
-          navigate(`${import.meta.env.VITE_DERIV}`)
-        } else {
-          window.location.replace(
-            `https://oauth.binary.com/oauth2/authorize?app_id=${
-              import.meta.env.VITE_APP_ID
-            }`
-          )
-        }
-      } else {
-        console.log("vip code failed", await response.json())
-        setError("vip code failed, try again")
-        cleanErrorIn5s()
-      }
-    } catch (error) {
-      console.log("Error during login:", error)
     }
   }
 
-  const inClick = () =>
-    !vipCodeActive
-      ? userExist
-        ? clickLogin()
-        : clickRegister()
-      : clickCodeVip()
+  const inClick = () => (userExist ? clickLogin() : clickRegister())
 
   const textStyleAction = (length: number) =>
     textStyle + (length > 0 ? " -top-6 left-0" : " top-2 left-3")
@@ -388,50 +371,14 @@ const Auth = () => {
               onChange={inputChange}
               value={auth.password}
               className={inputStyle}
-              onKeyDown={(e) =>
-                e.key === "Enter" && !vipCodeActive && inClick()
-              }
+              onKeyDown={(e) => e.key === "Enter" && inClick()}
               autoFocus
             />
           </motion.label>
 
-          {vipCodeActive && (
-            <motion.label
-              initial={{
-                opacity: 0,
-                height: 0
-              }}
-              animate={{
-                opacity: 1,
-                height: "auto",
-                transition: {
-                  duration: 0.5
-                }
-              }}
-              htmlFor="vipCode"
-              className={`${labelStyle}`}
-            >
-              <div className={textStyleAction(auth.vipCode.length)}>
-                Vip Code
-              </div>
-              <input
-                name="vipCode"
-                type="password"
-                onChange={inputChange}
-                onKeyDown={(e) => e.key === "Enter" && inClick()}
-                value={auth.vipCode}
-                className={inputStyle}
-                autoFocus
-              />
-            </motion.label>
-          )}
-
           <button
             type="button"
-            disabled={
-              (!vipCodeActive && auth.password.length === 0) ||
-              (vipCodeActive && auth.vipCode.length === 0)
-            }
+            disabled={auth.password.length === 0}
             onClick={inClick}
             className=" 
           relative py-2 px-4 opacity-50 border-2 rounded
