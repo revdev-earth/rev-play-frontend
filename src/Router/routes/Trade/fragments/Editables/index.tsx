@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react"
 import Select from "react-select"
-import type { ActionMeta } from "react-select"
+import type { ActionMeta, SingleValue } from "react-select"
+
+import { state } from "+local"
 
 import { useDispatch, useSelector } from "+redux"
+import { rewrite_editables } from "+redux/slices/editables"
+
+import ws_comprador from "sockets/comprador"
 
 import "./Editables.css"
-import { rewrite_editables } from "+redux/slices/editables"
 
 const options_duration_unit = [
   { value: "t", label: "ticks" },
@@ -26,11 +30,6 @@ const options_symbols = [
   { value: "1HZ10V", label: "1HZ10V" }
 ]
 
-const options_currency = [
-  { value: "USD", label: "USD" },
-  { value: "EUR", label: "EUR" }
-]
-
 interface Option {
   value: string
   label: string
@@ -41,7 +40,24 @@ const classCommon = "flex flex-col gap-2"
 export const Editables = () => {
   const dispatch = useDispatch()
   const _editables = useSelector((s) => s.editables)
+  const deriv = useSelector((s) => s.access.deriv)
   const [editables, setEditables] = useState(_editables)
+  const [optionsAcc, setOptionsAcc] = useState<
+    {
+      value: number
+      label: string
+    }[]
+  >([])
+
+  useEffect(() => {
+    const optionsAcc = deriv.map((acc, i) => ({
+      value: i,
+      label: acc.cur
+    }))
+    setEditables((s) => ({ ...s, actual_account: editables.actual_account }))
+    setOptionsAcc(optionsAcc)
+    ws_comprador()
+  }, [deriv])
 
   const change_input = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditables((s) => ({ ...s, [e.target.name]: e.target.value }))
@@ -50,9 +66,16 @@ export const Editables = () => {
   const change_select = (
     option: Option | null,
     actionMeta: ActionMeta<Option>
+  ) => setEditables((s) => ({ ...s, [actionMeta.name || ""]: option?.value }))
+
+  const change_account = (
+    newValue: SingleValue<{
+      value: number
+      label: string
+    }>
   ) => {
-    const name = actionMeta.name || ""
-    setEditables((s) => ({ ...s, [name]: option?.value }))
+    setEditables((s) => ({ ...s, actual_account: newValue?.value || 0 }))
+    state.WebSockets.comprador?.close()
   }
 
   useEffect(() => {
@@ -64,12 +87,15 @@ export const Editables = () => {
     <div className="editables">
       <div>
         <label htmlFor="balance_to_use" className={classCommon}>
-          <div>Api token:</div>
-          <input
-            name="api_token"
-            type="text"
-            onChange={change_input}
-            value={editables.api_token}
+          <div>Account:</div>
+          {/* Select Account */}
+          <Select
+            classNamePrefix="_"
+            name="account"
+            onChange={change_account}
+            options={optionsAcc}
+            defaultValue={optionsAcc[editables.actual_account]}
+            value={optionsAcc[editables.actual_account]}
           />
         </label>
         <label htmlFor="balance_to_use" className={classCommon}>
@@ -115,7 +141,8 @@ export const Editables = () => {
             defaultValue={options_symbols[0]}
           />
         </div>
-        <div className={classCommon}>
+
+        {/* <div className={classCommon}>
           <div>Currency :</div>
           <Select
             classNamePrefix="_"
@@ -128,7 +155,7 @@ export const Editables = () => {
               value: editables.currency
             }}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   )

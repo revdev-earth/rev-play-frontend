@@ -1,9 +1,8 @@
-import { state } from "+local"
-import { useDispatch } from "+redux"
-import { set_deriv } from "+redux/slices/access"
-import { rewrite_editables } from "+redux/slices/editables"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+
+import { useDispatch } from "+redux"
+import { set_deriv } from "+redux/slices/access"
 
 const Deriv = () => {
   const dispatch = useDispatch()
@@ -46,16 +45,7 @@ const Deriv = () => {
       const curKey = `cur${counter}`
       const tokenKey = `token${counter}`
 
-      if (!(acctKey in inputObject)) {
-        break
-      }
-
-      // const newObj = {
-      //   [acctKey]: inputObject[acctKey],
-      //   [curKey]: inputObject[curKey],
-      //   // state: inputObject.state,
-      //   [tokenKey]: inputObject[tokenKey]
-      // }
+      if (!(acctKey in inputObject)) break
 
       const newObj = {
         acct: inputObject[acctKey],
@@ -67,16 +57,7 @@ const Deriv = () => {
       counter++
     }
 
-    // console.log(resultArray)
-    // console.log(resultArray[0].token, resultArray[1].token)
-
     dispatch(set_deriv(resultArray))
-    dispatch(
-      rewrite_editables({
-        api_token: resultArray[1].token,
-        currency: resultArray[1].cur
-      })
-    )
 
     navigate("/trade")
   }

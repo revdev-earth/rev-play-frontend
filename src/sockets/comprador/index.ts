@@ -16,7 +16,7 @@ const uri = `${url}${app_id}` // Constructing the complete WebSocket URI
  * Function to establish a WebSocket connection
  */
 const connect = () => {
-  console.log(" :: socket comprador iniciando")
+  console.log(" :: socket comprador iniciado")
 
   // Creating a new WebSocket instance
   const ws = new WebSocket(uri)

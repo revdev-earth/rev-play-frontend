@@ -10,7 +10,7 @@ export const send = (data: Object) => {
   if (state.logs.show_send_logs)
     console.log(":: socket comercial send : ", data)
   if (typeof state.WebSockets.comprador === "undefined")
-    return console.log(" state.WebSockets.comprador no definido")
+    return console.log(" state.WebSockets.comprador no definido", data)
   state.WebSockets.comprador.send(JSON.stringify(data))
 }
 
@@ -32,8 +32,14 @@ export const send_time_repet = () => {
 
 // autorizacion
 export const authorization = () => {
-  send({ authorize: store.getState().editables.api_token })
+  // send({ authorize: store.getState().editables.api_token })
+  send({
+    authorize:
+      store.getState().access.deriv[store.getState().editables.actual_account]
+        .token
+  })
 }
+
 let min_amount = 0.35
 export const make_proposals = () => {
   // console.log("make proposal")

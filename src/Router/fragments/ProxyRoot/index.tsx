@@ -26,6 +26,7 @@ export const ProxyRoot = () => {
         console.log("Error during login:", error)
       }
     }
+
     checkAccess()
     const Timeout = setTimeout(() => {
       checkAccess()

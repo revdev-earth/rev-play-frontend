@@ -11,7 +11,7 @@ const app_id = "35134"
 const uri = `wss://ws.binaryws.com/websockets/v3?app_id=${app_id}`
 
 const connect = () => {
-  console.log(" :: socket observador iniciando")
+  console.log(" :: socket observador iniciado")
   const ws = new WebSocket(uri)
 
   ws.onopen = open

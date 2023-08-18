@@ -6,7 +6,7 @@ export interface Access {
   api_token: string
   user_token: string
 
-  deriv: { acct: any; cur: any; token: any }[]
+  deriv: { acct: string; cur: string; token: string }[]
 }
 
 const initial = {
@@ -42,10 +42,15 @@ const initial = {
     duration: 1,
     symbol: "1HZ50V",
     currency: "USD",
-    api_token: ""
+    api_token: "",
+    actual_account: 0
   },
 
-  access: <Access>{}
+  access: <Access>{},
+
+  ws: {
+    comprador_ready: false
+  }
 }
 
 export default initial
