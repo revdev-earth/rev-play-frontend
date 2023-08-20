@@ -3,7 +3,6 @@ import { useDispatch } from "+redux"
 import { useNavigate } from "react-router-dom"
 import { set_session_token } from "+redux/slices/access"
 import { motion } from "framer-motion"
-import { debounce } from "lodash"
 
 const initial_state = {
   nick_or_email: "",
@@ -55,8 +54,6 @@ const Auth = () => {
           headers: { "Content-Type": "application/json" }
         }
       )
-      // const res = (await response.json()) as { message: string }
-      console.log({ ok: response.ok })
       setUserExist(response.ok)
       setIsUserChecked(true)
       setLoading(false)
@@ -152,7 +149,7 @@ const Auth = () => {
     dispatch(set_session_token({ sessionToken: token, sessionExpiresIn }))
 
     if (import.meta.env.DEV) {
-      navigate(`${import.meta.env.VITE_DERIV}`)
+      navigate(`${import.meta.env.VITE_DERIV}`, { replace: true })
     } else {
       window.location.replace(
         `https://oauth.binary.com/oauth2/authorize?app_id=${

@@ -119,7 +119,10 @@ export const message = (messageEvent: MessageEvent<string>) => {
 const authorize = (data: AuthorizeData) => {
   // console.log(":: authorize : ", { data })
 
-  if (data.error) return console.log(":: authorize : ", { data })
+  if (data.error) {
+    window.location.replace("/")
+    return console.log(":: authorize : ", { data })
+  }
 
   state.authorize = data.authorize
 

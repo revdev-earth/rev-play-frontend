@@ -59,7 +59,7 @@ const Deriv = () => {
 
     dispatch(set_deriv(resultArray))
 
-    navigate("/trade")
+    navigate("/trade", { replace: true })
   }
 
   return <div>Deriv</div>

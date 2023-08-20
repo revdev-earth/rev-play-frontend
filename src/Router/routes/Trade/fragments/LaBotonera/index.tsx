@@ -7,7 +7,8 @@ export default () => {
   const logOut = () => {
     localStorage.removeItem("state")
     if (import.meta.env.PROD) logoutDeriv()
-    navigate("/")
+    navigate(0)
+    navigate("/", { replace: true })
   }
 
   return (
