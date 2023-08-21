@@ -17,7 +17,14 @@ import {
 import { set_amounts, fixed_2 } from "../utils"
 import { rewrite_info } from "+redux/slices/info"
 import { add_purchase, rewrite_purchase } from "+redux/slices/purchases"
-import { convertidor_de_hora } from "utils"
+// import { convertidor_de_hora } from "utils"
+
+const intial_track_contract = {
+  entry_spot: undefined as number | undefined,
+  exit_tick: undefined as number | undefined
+}
+
+let actual_track_contract = intial_track_contract
 
 // Messages
 export const message = (messageEvent: MessageEvent<string>) => {
@@ -34,7 +41,6 @@ export const message = (messageEvent: MessageEvent<string>) => {
   if (state.logs.show_message_logs)
     console.log(":: socket comercial message", data)
 
-  // variable que tenemos que usar
   const { msg_type } = data
 
   switch (msg_type) {
@@ -47,47 +53,30 @@ export const message = (messageEvent: MessageEvent<string>) => {
 
       if (isEmpty(contract) || !contract) return
 
-      const {
-        // date_start,
-        tick_stream
-      } = contract
+      const { entry_spot, exit_tick, is_sold } = contract
 
-      const { is_expired = 0, is_sold = 0, current_spot } = contract
-
-      if (tick_stream.length === 0) {
-        const { current_spot } = contract
-
-        // console.log(
-        //   `%c ${convertidor_de_hora(date_start)} ${current_spot} `,
-        //   "background-color: orange; color: white;"
-        // )
-
+      if (entry_spot && !actual_track_contract.entry_spot) {
+        actual_track_contract.entry_spot = entry_spot
         state.grafica.compras.push({
-          tick: current_spot,
+          tick: entry_spot,
           type: "start"
         })
-      } else {
-        const { tick_stream, status } = contract
-        // const tick = tick_stream[tick_stream.length - 1]
+      }
 
-        // console.log(
-        //   `%c ${convertidor_de_hora(tick?.epoch)},  ${tick.tick} `,
-        //   "background-color: blue; color: white;"
-        // )
+      if (exit_tick && !actual_track_contract.exit_tick) {
+        actual_track_contract.exit_tick = exit_tick
+        console.log(contract.payout, contract.profit)
+        const type = contract.profit > 0 ? "won" : "lost"
+        state.grafica.compras.push({
+          tick: exit_tick,
+          type
+          // type: status as "won" | "lost" | "open" | "ni idea"
+        })
+      }
 
-        if (!is_expired && !is_sold) {
-          state.grafica.compras.push({
-            tick: current_spot,
-            type: "inprocess"
-          })
-        } else {
-          if (!(status === "won" || status === "lost" || status === "open"))
-            console.log(status)
-          state.grafica.compras.push({
-            tick: current_spot,
-            type: status as "won" | "lost" | "open" | "ni idea"
-          })
-        }
+      if (is_sold) {
+        actual_track_contract.entry_spot = undefined
+        actual_track_contract.exit_tick = undefined
       }
 
       proposal_open_contract(contract)
@@ -115,7 +104,6 @@ export const message = (messageEvent: MessageEvent<string>) => {
   }
 }
 
-// funciones que vamos a usar para los mensajes
 const authorize = (data: AuthorizeData) => {
   // console.log(":: authorize : ", { data })
 

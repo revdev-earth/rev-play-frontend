@@ -7,7 +7,7 @@ import { state } from "+local"
 import { useDispatch, useSelector } from "+redux"
 import { rewrite_editables } from "+redux/slices/editables"
 
-import ws_comprador from "sockets/comprador"
+import ws_buyer from "sockets/buyer"
 
 import "./Editables.css"
 
@@ -56,7 +56,7 @@ export const Editables = () => {
     }))
     setEditables((s) => ({ ...s, actual_account: editables.actual_account }))
     setOptionsAcc(optionsAcc)
-    ws_comprador()
+    ws_buyer()
   }, [deriv])
 
   const change_input = (e: React.ChangeEvent<HTMLInputElement>) => {

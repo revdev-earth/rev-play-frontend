@@ -1,4 +1,4 @@
-import { buy, buy_with_proposal } from "../../comprador/sends"
+import { buy, buy_with_proposal } from "../../buyer/sends"
 import { state } from "+local"
 import { Candle } from "types"
 

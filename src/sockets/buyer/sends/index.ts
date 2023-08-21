@@ -45,7 +45,7 @@ export const make_proposals = () => {
   // console.log("make proposal")
 
   if (state.internal.amount < min_amount) {
-    console.log(" > Caso de estudio amount :", state.internal.amount)
+    console.log(" > Case study amount :", state.internal.amount)
   }
 
   const common_proposal = {
@@ -104,7 +104,7 @@ export const buy_with_proposal = () => {
     !state.proposals[contract_type].ask_price
   )
     return console.log(`
-    no definidos...
+    no defined...
     buy: ${state.proposals[contract_type].id}
     price: ${state.proposals[contract_type].ask_price}
   `)
@@ -137,7 +137,7 @@ export const subscribe_transactions = () => {
   })
 }
 
-// Just buy
+// Just buy // not used
 export const buy = () => {
   state.internal.can_buy = false
 

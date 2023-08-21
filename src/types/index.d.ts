@@ -2,6 +2,7 @@
 export interface Data {
   msg_type: string
   echo_req: any
+
   [key: string]: any
 
   authorize?: Authorize

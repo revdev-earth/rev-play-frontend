@@ -3,7 +3,7 @@ import { useSelector } from "+redux"
 import Purchase from "./Purchase"
 import type { PurchaseRedux } from "types"
 
-const lista_de_opciones_para_la_tabla = [
+const purchase_list = [
   "position",
   "buy_price",
   "payout",
@@ -46,7 +46,7 @@ export default () => {
   return (
     <div className=" flex flex-col gap-2 ">
       <div className=" grid header-table grid-cols-8 gap-1 text-center">
-        {lista_de_opciones_para_la_tabla
+        {purchase_list
           .filter((opcion) => opcion !== "is_sold")
           .map((opcion) => (
             <div
@@ -65,7 +65,7 @@ export default () => {
           ids.map((contract_id: number) => (
             <Purchase
               key={contract_id}
-              {...{ purchase: filtro_de_item_a_pasar(items[contract_id]) }}
+              {...{ purchase: item_filter(items[contract_id]) }}
             />
           ))}
       </div>
@@ -73,19 +73,11 @@ export default () => {
   )
 }
 
-const filtro_de_item_a_pasar = (ticket_de_compra: PurchaseRedux) =>
-  lista_de_opciones_para_la_tabla.reduce(
-    (acumulador: Partial<PurchaseRedux>, nombre) => {
-      if (ticket_de_compra[nombre]) {
-        acumulador[nombre] = ticket_de_compra[nombre]
-      }
-
-      if (nombre === "sell_price")
-        acumulador[nombre] = ticket_de_compra[nombre] || 0
-
-      return acumulador
-    },
-    {}
-  )
+const item_filter = (purchase: PurchaseRedux) =>
+  purchase_list.reduce((previousValue: Partial<PurchaseRedux>, nombre) => {
+    if (purchase[nombre]) previousValue[nombre] = purchase[nombre]
+    if (nombre === "sell_price") previousValue[nombre] = purchase[nombre] || 0
+    return previousValue
+  }, {})
 
 const filter_label_text = (str: string) => str.replace(/_/g, " ")

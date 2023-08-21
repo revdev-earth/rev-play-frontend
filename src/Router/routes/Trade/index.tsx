@@ -4,11 +4,11 @@ import { motion } from "framer-motion"
 import { Editables } from "./fragments/Editables"
 import { Information } from "./fragments/Information"
 import Purchases from "./fragments/Purchases"
-import Grafica from "./fragments/Grafica"
-import Collapsible from "./fragments/Collapsible"
-import LaBotonera from "./fragments/LaBotonera"
+import ChartData from "./fragments/ChartData"
+import DropDown from "./fragments/DropDown"
+import ButtonPanel from "./fragments/ButtonPanel"
 
-import ws_observador from "sockets/observador"
+import ws_observer from "sockets/observer_ticks"
 
 import "./Trade.css"
 
@@ -16,7 +16,7 @@ export default () => {
   // const { ws } = useSelector((s) => s)
 
   useEffect(() => {
-    ws_observador()
+    ws_observer()
   }, [])
 
   // return ws.comprador_ready ? <Trade /> : null
@@ -41,22 +41,22 @@ const Trade = () => {
       >
         <div>
           <div className="flex items-center w-full">
-            <Collapsible label="Market">
-              <Grafica />
-            </Collapsible>
+            <DropDown label="Market">
+              <ChartData />
+            </DropDown>
           </div>
 
-          <Collapsible label="Information">
+          <DropDown label="Information">
             <Editables />
             <Information />
-          </Collapsible>
+          </DropDown>
 
-          <Collapsible label="Trades">
+          <DropDown label="Trades">
             <Purchases />
-          </Collapsible>
+          </DropDown>
         </div>
 
-        <LaBotonera />
+        <ButtonPanel />
       </motion.div>
     </div>
   )

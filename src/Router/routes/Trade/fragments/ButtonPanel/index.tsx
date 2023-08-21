@@ -1,6 +1,6 @@
 import { stop, pausa, play } from "+local"
 import { useNavigate } from "react-router-dom"
-import { logoutDeriv } from "sockets/comprador/sends"
+import { logoutDeriv } from "sockets/buyer/sends"
 
 export default () => {
   const navigate = useNavigate()

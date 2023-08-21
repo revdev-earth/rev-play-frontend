@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import { memo, useLayoutEffect, useState, useRef } from "react"
-import create_y_positions from "./create_y_positions"
+import update_circles from "./update_circles"
 
 interface Chart {
   yValues?: number[] // [ 5000, 4000, 3000, 4500, 3500, 5000, 4000, 3000, 4500, 3500, 5000, 4000, 3000, 4500, 3500 ]
@@ -20,23 +20,21 @@ export default memo(
     const [width, setWidth] = useState<number>(window.innerWidth * 0.5)
     const [height, setHeight] = useState<number>(window.innerHeight * 0.5)
 
-    // console.log(width, height)
-
     useLayoutEffect(() => {
       const get_sizes = () => {
-        // console.log({ current: svgRef.current })
         if (svgRef.current) {
-          // console.log(svgRef.current.clientWidth, svgRef.current.clientHeight)
           setWidth(svgRef.current.clientWidth)
           setHeight(svgRef.current.clientHeight)
         }
       }
       get_sizes()
       window.addEventListener("resize", get_sizes)
-      return () => window.removeEventListener("resize", get_sizes)
+      return () => {
+        window.removeEventListener("resize", get_sizes)
+      }
     }, [svgRef.current])
 
-    const circles = create_y_positions({
+    const circles = update_circles({
       width,
       height,
       yValues,
@@ -44,9 +42,10 @@ export default memo(
       circleRadius
     })
 
-    if (!circles) return <motion.div>No hay circulos.</motion.div>
+    if (!circles) return <motion.div>There is not circles.</motion.div>
+
     if (circles.length < 2)
-      return <motion.div>pon mas de dos circulos</motion.div>
+      return <motion.div>Set more than two circles</motion.div>
 
     const linePoints = circles
       .map((circle) => `${circle.x},${circle.y}`)

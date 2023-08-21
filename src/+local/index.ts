@@ -15,16 +15,16 @@ export const state = {
   internal: {
     contract_type: "",
 
-    multiplicador_del_balance_a_usar: 0.0018,
+    multiplicador_del_balance_a_usar: 0.00175,
 
     initial_amount: 0.35,
     amount: 0.35,
 
     max_loss_count: 8,
 
-    multiplicador1: 2.25,
-    multiplicador2: 2.25,
-    multiplicador3: 2.25,
+    multiplicador1: 2.24,
+    multiplicador2: 2.24,
+    multiplicador3: 2.24,
 
     can_buy: false,
     el_arranque_de_compra: true
