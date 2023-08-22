@@ -71,11 +71,7 @@ export const make_proposals = () => {
 }
 
 export const forget_all = () => {
-  const data = {
-    forget_all: ["proposal"],
-    req_id: 37
-  }
-
+  const data = { forget_all: ["proposal"] }
   send(data)
 }
 

@@ -13,6 +13,9 @@ export const message = (messageEvent: MessageEvent<string>) => {
   const { msg_type } = data
 
   switch (msg_type) {
+    case "forget_all":
+      break
+
     case "history":
       set_history(data)
       break

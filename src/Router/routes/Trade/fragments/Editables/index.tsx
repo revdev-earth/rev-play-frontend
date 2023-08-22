@@ -10,6 +10,8 @@ import { rewrite_editables } from "+redux/slices/editables"
 import ws_buyer from "sockets/buyer"
 
 import "./Editables.css"
+import { forget_and_make_proposal } from "sockets/buyer/sends"
+import { forget_all_and_subscribe } from "sockets/observer_ticks/sends"
 
 const options_duration_unit = [
   { value: "t", label: "ticks" },
@@ -62,6 +64,11 @@ export const Editables = () => {
     ws_buyer()
   }, [deriv])
 
+  useEffect(() => {
+    dispatch(rewrite_editables(editables))
+    // state.editables = editables
+  }, [editables])
+
   const change_input = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditables((s) => ({ ...s, [e.target.name]: e.target.value }))
   }
@@ -72,19 +79,28 @@ export const Editables = () => {
   ) => setEditables((s) => ({ ...s, [actionMeta.name || ""]: option?.value }))
 
   const change_account = (
-    newValue: SingleValue<{
+    option: SingleValue<{
       value: number
       label: string
     }>
   ) => {
-    setEditables((s) => ({ ...s, actual_account: newValue?.value || 0 }))
+    setEditables((s) => ({ ...s, actual_account: option?.value || 0 }))
     state.WebSockets.comprador?.close()
   }
 
-  useEffect(() => {
-    dispatch(rewrite_editables(editables))
-    // state.editables = editables
-  }, [editables])
+  const change_symbol = (
+    option: SingleValue<{
+      value: string
+      label: string
+    }>
+  ) => {
+    if (option?.value) setEditables((s) => ({ ...s, symbol: option.value }))
+
+    setTimeout(() => {
+      forget_and_make_proposal()
+      forget_all_and_subscribe()
+    }, 100)
+  }
 
   return (
     <div className="editables">
@@ -139,7 +155,7 @@ export const Editables = () => {
           <Select
             classNamePrefix="_"
             name="symbol"
-            onChange={change_select}
+            onChange={change_symbol}
             options={options_symbols}
             defaultValue={options_symbols[0]}
           />

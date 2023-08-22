@@ -36,3 +36,13 @@ export const subscribe_history = () => {
 
   send(message)
 }
+
+export const forget_all = () => {
+  const data = { forget_all: ["ticks"] }
+  send(data)
+}
+
+export const forget_all_and_subscribe = () => {
+  forget_all()
+  subscribe_history()
+}
