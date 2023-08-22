@@ -151,11 +151,13 @@ const Auth = () => {
     if (import.meta.env.DEV) {
       navigate(`${import.meta.env.VITE_DERIV}`, { replace: true })
     } else {
-      window.location.replace(
-        `https://oauth.binary.com/oauth2/authorize?app_id=${
-          import.meta.env.VITE_APP_ID
-        }`
-      )
+      setTimeout(() => {
+        window.location.replace(
+          `https://oauth.binary.com/oauth2/authorize?app_id=${
+            import.meta.env.VITE_APP_ID
+          }`
+        )
+      }, 1000)
     }
   }
 
