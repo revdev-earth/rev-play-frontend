@@ -12,6 +12,7 @@ import ws_buyer from "sockets/buyer"
 import "./Editables.css"
 import { forget_and_make_proposal } from "sockets/buyer/sends"
 import { forget_all_and_subscribe } from "sockets/observer_ticks/sends"
+import { debounce } from "lodash"
 
 const options_duration_unit = [
   { value: "t", label: "ticks" },
@@ -159,6 +160,48 @@ export const Editables = () => {
             options={options_symbols}
             defaultValue={options_symbols[0]}
           />
+        </div>
+        <RangeInput value={editables.sma} onChange={change_input} />
+      </div>
+    </div>
+  )
+}
+
+const RangeInput = ({ value: _value, onChange }: any) => {
+  const [value, setValue] = useState(_value)
+
+  const delayedHandleRangeChange = debounce(
+    (event) => {
+      onChange(event)
+    },
+    500,
+    { trailing: false, leading: true }
+  )
+
+  const handleRangeChange = (event: any) => {
+    const newValue = event.target.value
+    setValue(newValue)
+    delayedHandleRangeChange(event)
+  }
+
+  return (
+    <div className="flex items-center space-x-4">
+      <label htmlFor="range" className="text-gray-600">
+        SMA range:
+      </label>
+      <input
+        type="range"
+        name="sma"
+        min="1"
+        max="20"
+        step="1"
+        value={value}
+        onChange={handleRangeChange}
+        className="w-64 h-2 bg-blue-200 rounded-md appearance-none focus:outline-none focus:ring focus:border-blue-300"
+      />
+      <div className="flex items-center">
+        <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+          <span className="text-white text-xs">{value}</span>
         </div>
       </div>
     </div>

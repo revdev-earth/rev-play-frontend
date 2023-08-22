@@ -43,7 +43,8 @@ const initial = {
     symbol: "1HZ50V",
     currency: "USD",
     api_token: "",
-    actual_account: 0
+    actual_account: 0,
+    sma: 8
   },
 
   access: <Access>{},

@@ -1,4 +1,5 @@
 import { state } from "+local"
+import { store } from "+redux"
 import { buy_with_proposal } from "sockets/buyer/sends"
 import { SMA } from "technicalindicators"
 
@@ -71,7 +72,10 @@ const update_ticks = (data: {
   state.lists.ticks.shift()
   state.lists.ticks = [...state.lists.ticks, data.tick.quote]
 
-  const sma = new SMA({ period: 8, values: state.lists.ticks }) as SMA_
+  const sma = new SMA({
+    period: store.getState().editables.sma,
+    values: state.lists.ticks
+  }) as SMA_
 
   const sma1 = sma.result[0]
   const sma2 = sma.result[1]
