@@ -17,7 +17,7 @@ const Home = () => {
       }}
     >
       <header className="flex w-full justify-between mx-5 h-20 items-center">
-        <div>Play Rev</div>
+        <div>Rev Play</div>
       </header>
 
       <div className="flex justify-center ">
@@ -31,7 +31,7 @@ const Home = () => {
           <Link to="public/terms_and_conditions">terms and service</Link>
           <Link to="public/instructions">Instructions</Link>
         </div>
-        <div> All rights reserved - Play Rev</div>
+        <div> All rights reserved - Rev Play</div>
       </footer>
     </motion.div>
   )
