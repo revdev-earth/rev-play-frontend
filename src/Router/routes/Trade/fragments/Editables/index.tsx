@@ -141,21 +141,6 @@ export const Editables = () => {
             defaultValue={options_symbols[0]}
           />
         </div>
-
-        {/* <div className={classCommon}>
-          <div>Currency :</div>
-          <Select
-            classNamePrefix="_"
-            name="currency"
-            onChange={change_select}
-            options={options_currency}
-            // defaultValue={options_currency[0]}
-            defaultValue={{
-              label: editables.currency,
-              value: editables.currency
-            }}
-          />
-        </div> */}
       </div>
     </div>
   )
