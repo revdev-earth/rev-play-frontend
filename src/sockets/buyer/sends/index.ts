@@ -7,23 +7,18 @@ import { Contract_type, Proposal } from "types"
 // aqui vamos a poder enviar la data
 // sin que tengamos que escribir todo lo mismo una y otra vez
 export const send = (data: Object) => {
-  if (state.logs.show_send_logs)
-    console.log(":: socket comercial send : ", data)
+  if (state.logs.show_send_logs) console.log(":: socket buyer send : ", data)
   if (typeof state.WebSockets.comprador === "undefined")
-    return console.log(" state.WebSockets.comprador no definido", data)
+    return console.log(" state.WebSockets.comprador not defined", data)
   state.WebSockets.comprador.send(JSON.stringify(data))
 }
 
-// esta funcion es solo para hacer ping
-// la idea es que no se cierre el socket
 export const send_time = () => {
   send({
     time: 1
   })
 }
 
-// aqui vamos a repetir el envio del ping
-// esto va a ser cada 30 segundos
 export const send_time_repet = () => {
   setInterval(() => {
     send_time()
@@ -32,7 +27,6 @@ export const send_time_repet = () => {
 
 // autorizacion
 export const authorization = () => {
-  // send({ authorize: store.getState().editables.api_token })
   send({
     authorize:
       store.getState().access.deriv[store.getState().editables.actual_account]
@@ -42,8 +36,6 @@ export const authorization = () => {
 
 let min_amount = 0.35
 export const make_proposals = () => {
-  // console.log("make proposal")
-
   if (state.internal.amount < min_amount) {
     console.log(" > Case study amount :", state.internal.amount)
   }
@@ -88,16 +80,9 @@ export const forget_all = () => {
 }
 
 export const buy_with_proposal = () => {
-  // console.log("buy_with_proposal")
   state.internal.can_buy = false
 
   const contract_type = state.internal.contract_type as Contract_type
-
-  // console.log({
-  //   contract_type,
-  //   buy: state.proposals[contract_type].id,
-  //   price: state.proposals[contract_type].ask_price
-  // })
 
   if (
     !state.proposals[contract_type].id ||
@@ -162,7 +147,7 @@ export const buy = () => {
     subscribe: 1
   }
 
-  console.log(":: realizando compra por : ", amount)
+  console.log(":: making purchase for amount : ", amount)
 
   send(purchase_msg)
 }

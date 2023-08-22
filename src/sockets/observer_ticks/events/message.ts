@@ -8,7 +8,7 @@ export const message = (messageEvent: MessageEvent<string>) => {
 
   const data = JSON.parse(messageEvent.data)
 
-  if (data.error) console.log("socket observador message : ", data)
+  if (data.error) console.log("socket observer ticks message : ", data)
 
   const { msg_type } = data
 
@@ -65,7 +65,6 @@ const update_ticks = (data: {
     symbol: string // "1HZ50V"
   }
 }) => {
-  console.log(data.tick.quote)
   state.lists.ticks.shift()
   state.lists.ticks = [...state.lists.ticks, data.tick.quote]
 

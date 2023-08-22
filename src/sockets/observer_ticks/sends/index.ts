@@ -4,9 +4,10 @@ import { state } from "+local"
 // here we gonna send the data
 // without to rewrite the same code
 export const send = (data: Object) => {
-  if (state.logs.show_send_logs) console.log(":: socket ticks send : ", data)
+  if (state.logs.show_send_logs)
+    console.log(":: socket observer ticks send : ", data)
   if (typeof state.WebSockets.observador === "undefined")
-    return console.log("no existe el WebSocket")
+    return console.log("WebSocket observer ticks is undefined")
   state.WebSockets.observador.send(JSON.stringify(data))
 }
 

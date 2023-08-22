@@ -4,8 +4,7 @@ import { set_amounts } from "../utils"
 
 // Connection opened
 export const open = (event: Event) => {
-  if (state.logs.show_open_logs)
-    console.log(":: socket comprador open : ", event)
+  if (state.logs.show_open_logs) console.log(":: socket buyer open : ", event)
 
   set_amounts()
 

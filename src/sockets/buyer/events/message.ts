@@ -35,11 +35,10 @@ export const message = (messageEvent: MessageEvent<string>) => {
   // console.log(data.msg_type)
   // console.log(data)
 
-  if (data.error) console.log("socket comprador message : ", { data })
+  if (data.error) console.log("socket buyer error message : ", { data })
 
-  // console.log(":: socket message data : ", data);
-  if (state.logs.show_message_logs)
-    console.log(":: socket comercial message", data)
+  // console.log(":: socket buyer data : ", data);
+  if (state.logs.show_message_logs) console.log(":: socket buyer message", data)
 
   const { msg_type } = data
 
@@ -65,7 +64,6 @@ export const message = (messageEvent: MessageEvent<string>) => {
 
       if (exit_tick && !actual_track_contract.exit_tick) {
         actual_track_contract.exit_tick = exit_tick
-        console.log(contract.payout, contract.profit)
         const type = contract.profit > 0 ? "won" : "lost"
         state.grafica.compras.push({
           tick: exit_tick,
@@ -99,7 +97,7 @@ export const message = (messageEvent: MessageEvent<string>) => {
       break
 
     default:
-      console.log(":: socket comercial message default : ", data)
+      console.log(":: socket buyer message default : ", data)
       break
   }
 }
@@ -131,9 +129,6 @@ let list_contracts_running = [] as number[]
 const proposal_open_contract = (
   proposal_open_contract: ProposalOpenContract
 ) => {
-  // console.log(":: profit : ", proposal_open_contract.profit);
-  // console.log(":: profit_percentage : ", proposal_open_contract.profit_percentage + "%");
-
   const {
     contract_id,
     buy_price,
@@ -151,8 +146,6 @@ const proposal_open_contract = (
   const exist_contract_id = list_contracts_running.some(
     (contract_id_from_list) => contract_id_from_list === contract_id
   )
-
-  // console.log(":: contract_id : ", contract_id);
 
   if (!exist_contract_id)
     list_contracts_running = compact([...list_contracts_running, contract_id])
@@ -174,17 +167,12 @@ const proposal_open_contract = (
 
   store.dispatch(rewrite_purchase(data_for_update_purchase))
 
-  // console.log(proposal_open_contract.is_sold)
-
   if (proposal_open_contract.is_sold) {
     sold_function(proposal_open_contract)
   }
 }
 
 const buy = (data: BuyData) => {
-  // console.log(":: buy : ", data)
-  // console.log("buy")
-
   const { contract_id, buy_price, payout, balance_after } = data.buy
 
   const purchase: AddPurchaseRedux = {
@@ -199,8 +187,6 @@ const buy = (data: BuyData) => {
 }
 
 const proposal = (data: ProposalData) => {
-  // console.log(":: proposal : ", data);
-
   const {
     echo_req: { contract_type },
     proposal
@@ -224,13 +210,9 @@ const proposal = (data: ProposalData) => {
   }
 }
 
-const forget_all = (data: Data) => {
-  // console.log(":: forget all ", data)
-}
+const forget_all = (data: Data) => {}
 
-const time = (data: Data) => {
-  // console.log(":: time", data);
-}
+const time = (data: Data) => {}
 
 // # Functions
 
@@ -301,9 +283,6 @@ const sold_function = ({
 
   store.dispatch(rewrite_info(info))
 
-  // console.log(":: pruchase state : ", proposal_open_contract.status);
-  // console.log(":: new_amount : ", state.internal.amount);
-
   list_contracts_running = list_contracts_running.filter(
     (contract_id_from_list) => contract_id_from_list !== contract_id
   )
@@ -313,7 +292,6 @@ const sold_function = ({
   const nueva_compra = info.max_position <= max_loss_count
 
   if (nueva_compra) {
-    // console.log("Vamos con una nueva compra")
     forget_and_make_proposal()
     state.comprador.is_proposal_ready = false
 

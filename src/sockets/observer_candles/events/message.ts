@@ -9,16 +9,10 @@ import {
 
 // Listen for messages
 export const message = (messageEvent: MessageEvent<string>) => {
-  // console.log(":: socket message : ", messageEvent);
-
   const data = JSON.parse(messageEvent.data) as Data
 
-  if (data.error) console.log("socket observador message : ", data)
+  if (data.error) console.log("socket observer message : ", data)
 
-  /* if (state.logs.show_message_logs)
-    console.log(":: socket message data : ", data); */
-
-  // variable que tenemos que usar
   const { msg_type } = data
 
   switch (msg_type) {
@@ -35,7 +29,7 @@ export const message = (messageEvent: MessageEvent<string>) => {
       break
 
     default:
-      console.log(":: socket ticks message default : ", data)
+      console.log(":: socket observer cangles message default : ", data)
       break
   }
 }
@@ -43,16 +37,12 @@ export const message = (messageEvent: MessageEvent<string>) => {
 // arrow functions
 
 const candles = (data: CandlesData) => {
-  // console.log(":: candles : ", data);
-
   state.candles = data.candles
 
   add_candles(data.candles)
 }
 
 const ohlc = (data: OHLCData) => {
-  // console.log(":: ohlc", data);
-
   state.ohlc = data.ohlc
 
   remove_first_candle()
@@ -62,6 +52,4 @@ const ohlc = (data: OHLCData) => {
   analysis()
 }
 
-const time = (data: Data) => {
-  // console.log(":: time", data);
-}
+const time = (data: Data) => {}

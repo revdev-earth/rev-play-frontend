@@ -39,8 +39,6 @@ interface SMA_ {
 }
 
 export const calculate_indicators = () => {
-  // console.log(":: calculate_indicators");
-
   const { close_prices: values } = state.lists
 
   const sma = new SMA({ period: 14, values }) as SMA_
@@ -58,8 +56,6 @@ export const calculate_indicators = () => {
 }
 
 export const analysis = () => {
-  // console.log(":: analysis")
-
   calculate_indicators()
 
   const { internal, config } = state
