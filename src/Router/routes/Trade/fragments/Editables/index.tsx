@@ -19,15 +19,18 @@ const options_duration_unit = [
 ]
 
 const options_symbols = [
-  { value: "R_100", label: "R_100" },
-  { value: "R_75", label: "R_75" },
-  { value: "R_50", label: "R_50" },
-  { value: "R_10", label: "R_10" },
-  { value: "1HZ100V", label: "1HZ100V" },
-  { value: "1HZ75V", label: "1HZ75V" },
-  { value: "1HZ50V", label: "1HZ50V" },
-  { value: "1HZ25V", label: "1HZ25V" },
-  { value: "1HZ10V", label: "1HZ10V" }
+  { value: "RDBEAR", label: "Bear Market Index" },
+  { value: "RDBULL", label: "Bull Market Index" },
+  { value: "R_10", label: "Volatility 10 Index" },
+  { value: "R_25", label: "Volatility 25 Index" },
+  { value: "R_50", label: "Volatility 50 Index" },
+  { value: "R_75", label: "Volatility 75 Index" },
+  { value: "R_100", label: "Volatility 100 Index" },
+  { value: "1HZ10V", label: "Volatility 10 (1s) Index" },
+  { value: "1HZ25V", label: "Volatility 25 (1s) Index" },
+  { value: "1HZ50V", label: "Volatility 50 (1s) Index" },
+  { value: "1HZ75V", label: "Volatility 75 (1s) Index" },
+  { value: "1HZ100V", label: "Volatility 100 (1s) Index" }
 ]
 
 interface Option {
