@@ -13,13 +13,10 @@ import ws_observer from "sockets/observer_ticks"
 import "./Trade.css"
 
 export default () => {
-  // const { ws } = useSelector((s) => s)
-
   useEffect(() => {
     ws_observer()
   }, [])
 
-  // return ws.comprador_ready ? <Trade /> : null
   return <Trade />
 }
 
@@ -28,9 +25,7 @@ const Trade = () => {
     <div className={`trade flex flex-col gap-2 my-5 items-center w-4/5`}>
       <motion.div
         className="flex items-center gap-3"
-        initial={{
-          opacity: 0
-        }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           transition: {
