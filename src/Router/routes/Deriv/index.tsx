@@ -4,39 +4,29 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch } from "+redux"
 import { set_deriv } from "+redux/slices/access"
 
-const Deriv = () => {
+export default () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    isolate_for_number(was())
+    isolateForNumber(parseQueryParams())
   }, [])
 
-  const was = () => {
-    // Obtén la cadena de consulta de la URL
+  const parseQueryParams = () => {
     const queryString = window.location.search
-
-    // Elimina el "?" del inicio de la cadena de consulta
     const queryStringWithoutQuestionMark = queryString.slice(1)
-
-    // Divide la cadena de consulta en pares de nombre y valor
     const paramPairs = queryStringWithoutQuestionMark.split("&")
-
-    // Crea un objeto para almacenar los parámetros
     const paramsObject = {} as Record<string, string>
 
-    // Itera a través de los pares de parámetros y agrega al objeto
     paramPairs.forEach((paramPair) => {
       const [name, value] = paramPair.split("=")
       paramsObject[name] = value
     })
 
-    // console.log(paramsObject)
-
     return paramsObject
   }
 
-  const isolate_for_number = (inputObject: any) => {
+  const isolateForNumber = (inputObject: Record<string, string>) => {
     const resultArray = []
     let counter = 1
 
@@ -64,5 +54,3 @@ const Deriv = () => {
 
   return <div>Deriv</div>
 }
-
-export default Deriv
