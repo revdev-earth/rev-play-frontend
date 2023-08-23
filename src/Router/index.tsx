@@ -1,22 +1,21 @@
 import {
   RouteObject,
   RouterProvider,
-  createBrowserRouter,
-  isRouteErrorResponse,
-  useRouteError
+  createBrowserRouter
 } from "react-router-dom"
 
 import Home from "./routes/Home"
 import Auth from "./routes/Auth"
 
-import { ProxyRoot } from "./fragments/ProxyRoot"
+import ProxyRoot from "./fragments/ProxyRoot"
+
 import Access from "./routes/Access"
 import Trade from "./routes/Trade"
 import Instructions from "./routes/public_route/Instructions"
 import TermsAndConditions from "./routes/public_route/TermsAndConditions"
 import Deriv from "./routes/Deriv"
+import ProxyCleaner from "./fragments/ProxyCleaner"
 
-const Perfil = Home
 const Interactua = Home
 const Sorteos = Home
 const Public = Home
@@ -25,6 +24,7 @@ const NotFound = Home
 const routes: RouteObject[] = [
   {
     path: "/",
+    element: <ProxyCleaner />,
     children: [
       {
         index: true,
@@ -35,6 +35,7 @@ const routes: RouteObject[] = [
 
   {
     path: "auth",
+    element: <ProxyCleaner />,
     children: [
       {
         index: true,
@@ -59,17 +60,13 @@ const routes: RouteObject[] = [
       {
         path: "trade",
         element: <Trade />
-      },
-
-      {
-        path: "perfil",
-        element: <Perfil />
       }
     ]
   },
 
   {
     path: "public",
+    element: <ProxyCleaner />,
     children: [
       {
         index: true,
@@ -96,7 +93,13 @@ const routes: RouteObject[] = [
 
   {
     path: "*",
-    element: <NotFound />
+    element: <ProxyCleaner />,
+    children: [
+      {
+        path: "*",
+        element: <NotFound />
+      }
+    ]
   }
 ]
 
