@@ -12,6 +12,7 @@ import ws_observer from "sockets/observer_ticks"
 // import ws_revplay from "sockets/revplay"
 
 import "./Trade.css"
+import Header from "./fragments/Header"
 
 export default () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ export default () => {
 const Trade = () => {
   return (
     <div className={`trade flex flex-col gap-2 my-5 items-center w-4/5`}>
+      <Header />
       <motion.div
         className="flex items-center gap-3"
         initial={{ opacity: 0 }}

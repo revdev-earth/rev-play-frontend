@@ -27,18 +27,9 @@ export default () => {
     navigate("/", { replace: true })
   }
 
-  const tiempoRestante = (sessionTimeout: number) => {
-    const minutes = Math.floor(sessionTimeout / 60000) // 60000 ms = 1 min
-    const seconds = Math.floor((sessionTimeout % 60000) / 1000)
-    console.log(`Tiempo restante: ${minutes}:${seconds}`)
-  }
-
   useEffect(() => {
     validateSession()
-
     const sessionTimeout = sessionExpiresIn - Date.now()
-    tiempoRestante(sessionTimeout)
-
     if (sessionTimeout > 0) {
       const timeoutId = setTimeout(validateSession, sessionTimeout)
       return () => clearTimeout(timeoutId)
