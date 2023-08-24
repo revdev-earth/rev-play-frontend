@@ -9,12 +9,14 @@ import DropDown from "./fragments/DropDown"
 import ButtonPanel from "./fragments/ButtonPanel"
 
 import ws_observer from "sockets/observer_ticks"
+// import ws_revplay from "sockets/revplay"
 
 import "./Trade.css"
 
 export default () => {
   useEffect(() => {
     ws_observer()
+    // ws_revplay()
   }, [])
 
   return <Trade />

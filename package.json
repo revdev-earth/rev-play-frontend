@@ -21,6 +21,7 @@
     "react-use-websocket": "^4.3.1",
     "redux-batched-subscribe": "^0.1.6",
     "redux-logger": "^3.0.6",
+    "socket.io-client": "^4.7.2",
     "technicalindicators": "^3.1.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
