@@ -11,6 +11,11 @@
     background-color: #f9f9f9;
   }
 
+  button:disabled {
+    border-color: transparent;
+    cursor: default;
+  }
+
   .won {
     color: teal;
   }

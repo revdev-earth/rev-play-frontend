@@ -19,10 +19,13 @@ const purchases_slice = createSlice({
         ...state.items,
         [payload.contract_id]: payload
       }
-    }
+    },
+
+    clean_purchases: () => initial.purchases
   }
 })
 
-export const { add_purchase, rewrite_purchase } = purchases_slice.actions
+export const { add_purchase, rewrite_purchase, clean_purchases } =
+  purchases_slice.actions
 
 export const reducer = purchases_slice.reducer
