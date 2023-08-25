@@ -81,14 +81,14 @@ export const state = {
     analizar: false
   },
 
-  observador: {
+  observer: {
     observar: false
   },
 
   habilitado_a_comprar: false,
 
   WebSockets: {
-    observador: <WebSocket | undefined>undefined,
+    observer: <WebSocket | undefined>undefined,
     comprador: <WebSocket | undefined>undefined
   },
 
@@ -110,7 +110,9 @@ export const state = {
     win_without_lost: 0,
     // credit_left: 10,
     total_won_app: 0
-  }
+  },
+
+  reconnect: false
 }
 
 export type State = typeof state

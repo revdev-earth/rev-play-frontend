@@ -8,9 +8,9 @@ import { state } from "+local"
 export const send = (data: Object) => {
   if (state.logs.show_send_logs)
     console.log(":: socket observer candles send : ", data)
-  if (typeof state.WebSockets.observador === "undefined")
+  if (typeof state.WebSockets.observer === "undefined")
     return console.log("WebSocket is undefined")
-  state.WebSockets.observador.send(JSON.stringify(data))
+  state.WebSockets.observer.send(JSON.stringify(data))
 }
 
 // esta funcion es solo para hacer ping

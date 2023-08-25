@@ -6,9 +6,9 @@ import { state } from "+local"
 export const send = (data: Object) => {
   if (state.logs.show_send_logs)
     console.log(":: socket observer ticks send : ", data)
-  if (typeof state.WebSockets.observador === "undefined")
+  if (typeof state.WebSockets.observer === "undefined")
     return console.log("WebSocket observer ticks is undefined")
-  state.WebSockets.observador.send(JSON.stringify(data))
+  state.WebSockets.observer.send(JSON.stringify(data))
 }
 
 // this function is just to ping with the time

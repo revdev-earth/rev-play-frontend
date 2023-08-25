@@ -5,5 +5,5 @@ export const close = (event: Event) => {
   if (state.logs.show_error_logs) {
     console.log(":: socket observer closed : ", { event })
   }
-  connect()
+  if (state.reconnect) connect()
 }

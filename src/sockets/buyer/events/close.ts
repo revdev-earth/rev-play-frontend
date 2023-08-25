@@ -8,5 +8,5 @@ export const close = (event: Event) => {
     store.dispatch(set_ready(false))
     console.log(":: socket buyer closed : ", { event })
   }
-  connect()
+  if (state.reconnect) connect()
 }

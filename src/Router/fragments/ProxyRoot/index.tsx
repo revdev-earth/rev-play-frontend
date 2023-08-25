@@ -1,3 +1,4 @@
+import { state, stop } from "+local"
 import { useSelector } from "+redux"
 import { useEffect, useState } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
@@ -25,6 +26,12 @@ export default () => {
     setIsSessionValid(false)
     localStorage.removeItem("state")
     navigate("/", { replace: true })
+    // stop the websockets
+    state.reconnect = false
+    state.WebSockets.comprador?.close()
+    state.WebSockets.observer?.close()
+    // stop the buys
+    stop()
   }
 
   useEffect(() => {
@@ -32,6 +39,7 @@ export default () => {
     const sessionTimeout = sessionExpiresIn - Date.now()
     if (sessionTimeout > 0) {
       const timeoutId = setTimeout(validateSession, sessionTimeout)
+      state.reconnect = true
       return () => clearTimeout(timeoutId)
     } else {
       handleSessionExpiration()
