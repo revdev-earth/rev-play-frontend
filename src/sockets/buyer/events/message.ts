@@ -287,6 +287,9 @@ const sold_function = ({
       sell_price - (state.info.accumulate_lost + amount)
     )
 
+    state.info.credit_left =
+      state.info.credit_left - state.info.win_without_lost * 0.1
+
     state.info.accumulate_lost = 0
 
     state.info.total_won_app = numFix(state.info.total_win * 0.02)

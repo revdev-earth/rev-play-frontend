@@ -108,8 +108,8 @@ export const state = {
     total_lost: 0,
     accumulate_lost: 0,
     win_without_lost: 0,
-    // credit_left: 10,
-    total_won_app: 0
+    total_won_app: 0,
+    credit_left: 10
   },
 
   reconnect: false
