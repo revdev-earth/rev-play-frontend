@@ -50,7 +50,7 @@ const initial = {
   access: <Access>{},
 
   ws: {
-    comprador_ready: false
+    buyer_ready: false
   }
 }
 

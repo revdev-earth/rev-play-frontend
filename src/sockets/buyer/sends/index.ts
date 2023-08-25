@@ -8,9 +8,9 @@ import { Contract_type, Proposal } from "types"
 // sin que tengamos que escribir todo lo mismo una y otra vez
 export const send = (data: Object) => {
   if (state.logs.show_send_logs) console.log(":: socket buyer send : ", data)
-  if (typeof state.WebSockets.comprador === "undefined")
-    return console.log(" state.WebSockets.comprador not defined", data)
-  state.WebSockets.comprador.send(JSON.stringify(data))
+  if (typeof state.WebSockets.buyer === "undefined")
+    return console.log(" state.WebSockets.buyer not defined", data)
+  state.WebSockets.buyer.send(JSON.stringify(data))
 }
 
 export const send_time = () => {
@@ -99,7 +99,7 @@ export const buy_with_proposal = () => {
 
   state.proposals.CALL = {} as Proposal
   state.proposals.PUT = {} as Proposal
-  state.comprador.is_proposal_ready = false
+  state.buyer.is_proposal_ready = false
 }
 
 //

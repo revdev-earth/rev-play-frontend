@@ -86,7 +86,7 @@ export const Editables = () => {
     }>
   ) => {
     setEditables((s) => ({ ...s, actual_account: option?.value || 0 }))
-    state.WebSockets.comprador?.close()
+    state.WebSockets.buyer?.close()
   }
 
   const change_symbol = (

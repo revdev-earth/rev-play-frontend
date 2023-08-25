@@ -15,5 +15,5 @@ export default () => {
   ws.onclose = close
   ws.onerror = error
   ws.onmessage = message
-  state.WebSockets.comprador = ws
+  state.WebSockets.buyer = ws
 }

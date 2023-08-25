@@ -9,7 +9,7 @@ const ws_slice = createSlice({
   reducers: {
     set_ready: (state, { payload }: { payload: boolean }) => ({
       ...state,
-      comprador_ready: payload
+      buyer_ready: payload
     })
   }
 })

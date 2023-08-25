@@ -23,13 +23,19 @@ export default () => {
   }
 
   const handleSessionExpiration = () => {
+    state.reconnect = false
+
     setIsSessionValid(false)
     // remove redux state
     localStorage.removeItem("state")
     // stop the websockets
-    state.reconnect = false
-    state.WebSockets.comprador?.close()
+    state.WebSockets.buyer?.close()
     state.WebSockets.observer?.close()
+
+    state.WebSockets.buyer = undefined
+    state.WebSockets.observer = undefined
+
+    console.log(state)
     // stop the buys
     stop()
     // redirect to home

@@ -89,7 +89,7 @@ export const state = {
 
   WebSockets: {
     observer: <WebSocket | undefined>undefined,
-    comprador: <WebSocket | undefined>undefined
+    buyer: <WebSocket | undefined>undefined
   },
 
   grafica: {
@@ -99,7 +99,7 @@ export const state = {
     }[]
   },
 
-  comprador: {
+  buyer: {
     is_proposal_ready: false
   },
 

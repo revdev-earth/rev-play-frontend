@@ -63,7 +63,7 @@ export const analysis = () => {
   if (state.habilitado_a_comprar) {
     if (internal.contract_type.length > 0) {
       config.buy_with_proposal &&
-        state.comprador.is_proposal_ready &&
+        state.buyer.is_proposal_ready &&
         buy_with_proposal()
 
       // !config.buy_with_proposal && buy()

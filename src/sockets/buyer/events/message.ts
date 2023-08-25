@@ -202,7 +202,7 @@ const proposal = (data: ProposalData) => {
   }
 
   if (!isEmpty(state.proposals.CALL) && !isEmpty(state.proposals.PUT)) {
-    state.comprador.is_proposal_ready = true
+    state.buyer.is_proposal_ready = true
   }
 
   if (state.internal.el_arranque_de_compra) {
@@ -311,7 +311,7 @@ const sold_function = ({
 
   if (nueva_compra) {
     forget_and_make_proposal()
-    state.comprador.is_proposal_ready = false
+    state.buyer.is_proposal_ready = false
 
     // const random_seconds_wait = random(1, 10)
 
