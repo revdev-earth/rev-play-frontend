@@ -24,14 +24,16 @@ export default () => {
 
   const handleSessionExpiration = () => {
     setIsSessionValid(false)
+    // remove redux state
     localStorage.removeItem("state")
-    navigate("/", { replace: true })
     // stop the websockets
     state.reconnect = false
     state.WebSockets.comprador?.close()
     state.WebSockets.observer?.close()
     // stop the buys
     stop()
+    // redirect to home
+    navigate("/", { replace: true })
   }
 
   useEffect(() => {
