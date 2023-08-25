@@ -161,7 +161,7 @@ export const Editables = () => {
             defaultValue={options_symbols[0]}
           />
         </div>
-        <RangeInput value={editables.sma} onChange={change_input} />
+        {/* <RangeInput value={editables.sma} onChange={change_input} /> */}
       </div>
     </div>
   )
