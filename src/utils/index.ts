@@ -13,3 +13,5 @@ export const la_hora = (time = new Date()) => {
 
   return hora
 }
+
+export const numFix = (num: number) => Number(num.toFixed(2))

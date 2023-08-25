@@ -101,6 +101,15 @@ export const state = {
 
   comprador: {
     is_proposal_ready: false
+  },
+
+  info: {
+    total_win: 0,
+    total_lost: 0,
+    accumulate_lost: 0,
+    win_without_lost: 0,
+    // credit_left: 10,
+    total_won_app: 0
   }
 }
 

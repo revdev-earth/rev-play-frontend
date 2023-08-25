@@ -14,9 +14,10 @@ import {
   make_proposals,
   subscribe_transactions
 } from "../sends"
-import { set_amounts, fixed_2 } from "../utils"
+import { set_amounts } from "../utils"
 import { rewrite_info } from "+redux/slices/info"
 import { add_purchase, rewrite_purchase } from "+redux/slices/purchases"
+import { numFix } from "utils"
 // import { convertidor_de_hora } from "utils"
 
 const intial_track_contract = {
@@ -114,7 +115,7 @@ const authorize = (data: AuthorizeData) => {
 
   state.isAuthorized = true
 
-  store.dispatch(rewrite_info({ balance: fixed_2(data.authorize.balance) }))
+  store.dispatch(rewrite_info({ balance: numFix(data.authorize.balance) }))
 
   subscribe_transactions()
 
@@ -183,7 +184,7 @@ const buy = (data: BuyData) => {
 
   store.dispatch(add_purchase(purchase))
 
-  store.dispatch(rewrite_info({ balance: fixed_2(balance_after) }))
+  store.dispatch(rewrite_info({ balance: numFix(balance_after) }))
 }
 
 const proposal = (data: ProposalData) => {
@@ -233,7 +234,7 @@ const sold_function = ({
     amount
   } = state.internal
 
-  const total_profit = Number((info.total_profit + profit).toFixed(2))
+  const total_profit = numFix(info.total_profit + profit)
 
   info.total_profit = total_profit
   info.total_contracts++
@@ -243,6 +244,9 @@ const sold_function = ({
     info.total_loss_contracts++
     info.continue_loss_contracts++
     info.position++
+
+    state.info.total_lost = numFix(amount + state.info.total_lost)
+    state.info.accumulate_lost = numFix(amount + state.info.accumulate_lost)
 
     const { continue_loss_contracts, position, max_position } = info
 
@@ -276,10 +280,21 @@ const sold_function = ({
     info.continue_loss_contracts = 0
     info.position = 1
 
-    info.balance = fixed_2(store.getState().info.balance + sell_price)
+    info.balance = numFix(store.getState().info.balance + sell_price)
+
+    state.info.total_win = numFix(sell_price + state.info.total_win)
+    state.info.win_without_lost = numFix(
+      sell_price - (state.info.accumulate_lost + amount)
+    )
+
+    state.info.accumulate_lost = 0
+
+    state.info.total_won_app = numFix(state.info.total_win * 0.02)
 
     set_amounts()
   }
+
+  console.log(state.info)
 
   store.dispatch(rewrite_info(info))
 

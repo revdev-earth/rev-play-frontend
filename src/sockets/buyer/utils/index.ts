@@ -24,5 +24,3 @@ export const set_amounts = () => {
     })
   )
 }
-
-export const fixed_2 = (number: number) => Number(number.toFixed(2))
