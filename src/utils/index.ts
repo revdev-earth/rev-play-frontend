@@ -15,3 +15,17 @@ export const la_hora = (time = new Date()) => {
 }
 
 export const numFix = (num: number) => Number(num.toFixed(2))
+
+export const parseQueryParams = () => {
+  const queryString = window.location.search
+  const queryStringWithoutQuestionMark = queryString.slice(1)
+  const paramPairs = queryStringWithoutQuestionMark.split("&")
+  const paramsObject = {} as Record<string, string>
+
+  paramPairs.forEach((paramPair) => {
+    const [name, value] = paramPair.split("=")
+    paramsObject[name] = value
+  })
+
+  return paramsObject
+}

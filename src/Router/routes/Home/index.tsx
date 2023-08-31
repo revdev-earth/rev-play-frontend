@@ -19,10 +19,10 @@ export default () => (
       <div>Rev Play</div>
     </header>
 
-    <div className="flex justify-center ">
-      <div>
-        Let's <Link to="/auth">go in!</Link>
-      </div>
+    <div className="flex gap-5 justify-center ">
+      <Link to="/login">Log in</Link>
+      <div>|</div>
+      <Link to="/register1">Sign up</Link>
     </div>
 
     <footer className="flex flex-col gap-4 h-60 items-center justify-end pb-10">

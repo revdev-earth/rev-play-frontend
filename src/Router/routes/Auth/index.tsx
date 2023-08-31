@@ -68,7 +68,7 @@ const Auth = () => {
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuth((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value.trim()
     }))
   }
 
@@ -172,9 +172,9 @@ const Auth = () => {
     setIsNick(!isEmail)
     setAuth((prevState) => ({
       ...prevState,
-      [isEmail ? "email" : "nick"]: auth.nick_or_email
+      [isEmail ? "email" : "nick"]: auth.nick_or_email.trim()
     }))
-    checkUser(auth.nick_or_email)
+    checkUser(auth.nick_or_email.trim())
   }
 
   const cleanErrorIn5s = () => {

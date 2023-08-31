@@ -16,6 +16,10 @@ import TermsAndConditions from "./routes/public_route/TermsAndConditions"
 import Deriv from "./routes/Deriv"
 import ProxyCleaner from "./fragments/ProxyCleaner"
 
+import Register1 from "./routes/Register1"
+import Register2 from "./routes/Register2"
+import Login from "./routes/Login"
+
 const Interactua = Home
 const Sorteos = Home
 const Public = Home
@@ -33,13 +37,46 @@ const routes: RouteObject[] = [
     ]
   },
 
+  // {
+  //   path: "auth",
+  //   element: <ProxyCleaner />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Auth />
+  //     }
+  //   ]
+  // },
+
   {
-    path: "auth",
+    path: "login",
     element: <ProxyCleaner />,
     children: [
       {
         index: true,
-        element: <Auth />
+        element: <Login />
+      }
+    ]
+  },
+
+  {
+    path: "register1",
+    element: <ProxyCleaner />,
+    children: [
+      {
+        index: true,
+        element: <Register1 />
+      }
+    ]
+  },
+
+  {
+    path: "register2",
+    element: <ProxyCleaner />,
+    children: [
+      {
+        index: true,
+        element: <Register2 />
       }
     ]
   },
