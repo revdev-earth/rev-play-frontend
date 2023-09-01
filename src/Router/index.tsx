@@ -5,7 +5,7 @@ import {
 } from "react-router-dom"
 
 import Home from "./routes/Home"
-import Auth from "./routes/Auth"
+// import Auth from "./routes/Auth"
 
 import ProxyRoot from "./fragments/ProxyRoot"
 
@@ -19,6 +19,8 @@ import ProxyCleaner from "./fragments/ProxyCleaner"
 import Register1 from "./routes/Register1"
 import Register2 from "./routes/Register2"
 import Login from "./routes/Login"
+import ResetPassword1 from "./routes/ResetPassword1"
+import ResetPassword2 from "./routes/ResetPassword2"
 
 const Interactua = Home
 const Sorteos = Home
@@ -77,6 +79,28 @@ const routes: RouteObject[] = [
       {
         index: true,
         element: <Register2 />
+      }
+    ]
+  },
+
+  {
+    path: "reset-password-1",
+    element: <ProxyCleaner />,
+    children: [
+      {
+        index: true,
+        element: <ResetPassword1 />
+      }
+    ]
+  },
+
+  {
+    path: "reset-password-2",
+    element: <ProxyCleaner />,
+    children: [
+      {
+        index: true,
+        element: <ResetPassword2 />
       }
     ]
   },

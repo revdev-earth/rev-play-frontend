@@ -1,8 +1,8 @@
-import { useCallback, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
-import Password from "../Register2/Password"
 import { useDispatch } from "react-redux"
+import { useCallback, useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
+import { motion } from "framer-motion"
+
 import { set_session_token } from "+redux/slices/access"
 
 const labelStyle = "flex flex-col gap-4 relative group cursor-default"
@@ -182,6 +182,8 @@ export default () => {
           className={inputStyle}
         />
       </motion.label>
+
+      <Link to="/reset-password-1">Reset password</Link>
 
       <button
         type="button"
