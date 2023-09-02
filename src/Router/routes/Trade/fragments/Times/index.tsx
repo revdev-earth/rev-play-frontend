@@ -58,7 +58,7 @@ export const Times = () => {
         <div>progress time :</div>
         <div>{now.time_to_show}</div>
       </div>
-      <div className="grid-2">
+      <div className="grid-2 gap-1">
         <div>tiempo transcurrido :</div>
         <div>{getTimmer(timpo_inicial.date.getTime(), now.date.getTime())}</div>
       </div>

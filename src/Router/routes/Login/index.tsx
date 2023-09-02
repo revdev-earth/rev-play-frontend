@@ -9,17 +9,6 @@ const labelStyle = "flex flex-col gap-4 relative group cursor-default"
 const inputStyle =
   "border border-solid rounded px-2 pt-2 pb-2 transition-all duration-300 focus:outline-none focus:border-blue-500 cursor-default"
 
-interface Response {
-  alreadyRegistered?: boolean
-  successRegstration?: boolean
-}
-
-interface Error {
-  message: string
-  error: string
-  statusCode: number
-}
-
 export default () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -34,7 +23,7 @@ export default () => {
 
   const [error, setError] = useState("")
 
-  const [res, setRes] = useState<Response>({})
+  const [success, setSuccess] = useState(false)
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((s) => ({ ...s, [e.target.name]: e.target.value.trim() }))
@@ -68,6 +57,7 @@ export default () => {
 
       if (response.ok) {
         tokenProcess(_res)
+        setSuccess(true)
       }
 
       if (!response.ok) {
@@ -105,7 +95,7 @@ export default () => {
 
   return (
     <motion.div
-      className="flex flex-col gap-5 -mt-10 w-1/3"
+      className="flex flex-col gap-5 -mt-10 md:w-1/3"
       initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
@@ -132,20 +122,7 @@ export default () => {
         </motion.p>
       )}
 
-      {/* {sent && !res?.go_to_login && (
-        <div>
-          ✅ Registration Successful! An email containing further information
-          will be sent to you shortly.
-        </div>
-      )}
-
-      {sent && res?.go_to_login && (
-        <div>
-          ✅ Registration Successful! You can now log in to your account.
-        </div>
-      )} */}
-
-      {sent && "You will be redirected to the homepage."}
+      {sent && success && <div>✅ Login Success!</div>}
 
       <motion.label
         initial={{ opacity: 0 }}
@@ -189,7 +166,7 @@ export default () => {
         type="button"
         disabled={
           formData.nick_or_email.length < 3 ||
-          formData.nick_or_email.length < 8 ||
+          formData.password.length < 8 ||
           sending
         }
         onClick={registUser}

@@ -104,7 +104,7 @@ export const Editables = () => {
   }
 
   return (
-    <div className="editables">
+    <div className="editables grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-start">
       <div>
         <label htmlFor="balance_to_use" className={classCommon}>
           <div>Account:</div>
