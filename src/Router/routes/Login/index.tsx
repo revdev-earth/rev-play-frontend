@@ -26,7 +26,7 @@ export default () => {
   const [success, setSuccess] = useState(false)
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((s) => ({ ...s, [e.target.name]: e.target.value.trim() }))
+    setFormData((s) => ({ ...s, [e.target.name]: e.target.value }))
   }
 
   const registUser = useCallback(async () => {
@@ -39,12 +39,12 @@ export default () => {
           method: "POST",
           body: JSON.stringify({
             nick: !formData.nick_or_email.includes("@")
-              ? formData.nick_or_email
+              ? formData.nick_or_email.trim()
               : "",
             email: formData.nick_or_email.includes("@")
-              ? formData.nick_or_email
+              ? formData.nick_or_email.trim()
               : "",
-            password: formData.password
+            password: formData.password.trim()
           }),
           headers: { "Content-Type": "application/json" }
         }
