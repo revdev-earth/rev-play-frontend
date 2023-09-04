@@ -287,8 +287,11 @@ const sold_function = ({
       sell_price - (state.info.accumulate_lost + amount)
     )
 
-    state.info.credit_left =
+    state.info.credit_left = numFix(
       state.info.credit_left - state.info.win_without_lost * 0.1
+    )
+
+    state.WebSockets.rev_play?.emit("updateCredit", state.info.credit_left)
 
     state.info.accumulate_lost = 0
 
@@ -296,8 +299,6 @@ const sold_function = ({
 
     set_amounts()
   }
-
-  console.log(state.info)
 
   store.dispatch(rewrite_info(info))
 

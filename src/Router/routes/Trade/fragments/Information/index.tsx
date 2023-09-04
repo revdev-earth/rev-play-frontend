@@ -4,6 +4,7 @@ import { useSelector } from "+redux"
 import "./Information.css"
 import { balance_function } from "../utils"
 import { Times } from "../Times"
+import { state } from "+local"
 
 export function Information() {
   const {
@@ -27,18 +28,21 @@ export function Information() {
         lg:grid-cols-3 md:gap-10  "
     >
       <div className="flex flex-col gap-0.5 w-full">
-        <div className="grid-2 gap-1">
-          <div>credits available :</div>
-          <div>{balance_function(balance)}</div>
-        </div>
         <div className="grid-2">
           <div>balance :</div>
           <div>{balance_function(balance)}</div>
         </div>
+
         <div className="grid-2">
           <div>balance in use :</div>
           <div>{balance_function(balance_in_use)}</div>
         </div>
+
+        <div className="grid-2 gap-1">
+          <div>credits available :</div>
+          <div>{state.info.credit_left}</div>
+        </div>
+
         <div className="grid-2 ">
           <div>total profit :</div>
           <div>{total_profit}</div>

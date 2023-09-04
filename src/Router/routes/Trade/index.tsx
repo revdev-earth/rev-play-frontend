@@ -9,7 +9,7 @@ import DropDown from "./fragments/DropDown"
 import ButtonPanel from "./fragments/ButtonPanel"
 
 import ws_observer from "sockets/observer_ticks"
-// import ws_revplay from "sockets/revplay"
+import ws_revplay from "sockets/revplay"
 
 import "./Trade.css"
 import Header from "./fragments/Header"
@@ -17,7 +17,7 @@ import Header from "./fragments/Header"
 export default () => {
   useEffect(() => {
     ws_observer()
-    // ws_revplay()
+    ws_revplay()
   }, [])
 
   return <Trade />

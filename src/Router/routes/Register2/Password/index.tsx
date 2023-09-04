@@ -42,7 +42,6 @@ export default ({
   }
 
   useEffect(() => {
-    console.log("times that change")
     if (check) {
       onSuccess && onSuccess({ password, check })
     } else {

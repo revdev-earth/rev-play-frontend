@@ -31,11 +31,12 @@ export default () => {
     // stop the websockets
     state.WebSockets.buyer?.close()
     state.WebSockets.observer?.close()
+    state.WebSockets.rev_play?.close()
 
     state.WebSockets.buyer = undefined
     state.WebSockets.observer = undefined
+    state.WebSockets.rev_play = undefined
 
-    console.log(state)
     // stop the buys
     stop()
     // redirect to home

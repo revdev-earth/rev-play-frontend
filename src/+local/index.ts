@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client"
 import type { Authorize, Candle, OHLC, Proposal } from "types"
 
 interface Compras {
@@ -89,7 +90,8 @@ export const state = {
 
   WebSockets: {
     observer: <WebSocket | undefined>undefined,
-    buyer: <WebSocket | undefined>undefined
+    buyer: <WebSocket | undefined>undefined,
+    rev_play: <Socket | undefined>undefined
   },
 
   grafica: {

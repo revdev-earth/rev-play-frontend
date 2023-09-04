@@ -56,6 +56,7 @@ export const Editables = () => {
   >([])
 
   useEffect(() => {
+    if (!deriv) return
     const optionsAcc = deriv.map((acc, i) => ({
       value: i,
       label: acc.cur
