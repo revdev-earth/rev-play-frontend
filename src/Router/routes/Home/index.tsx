@@ -27,7 +27,11 @@ export default () => (
 
     <footer className="flex flex-col gap-4 h-60 items-center justify-end pb-10">
       <div className="flex gap-4">
-        <Link to="public/terms_and_conditions">terms and service</Link>
+        <Link to="public/license_agreement">license agreement</Link>
+        <Link to="public/property_recognition_agreement_and_user_commitment">
+          property recognition agreement and user commitment
+        </Link>
+        <Link to="public/privacy_policy">privacy policy</Link>
         <Link to="public/instructions">Instructions</Link>
       </div>
       <div> All rights reserved - Rev Play</div>

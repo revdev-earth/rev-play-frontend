@@ -11,8 +11,10 @@ import ProxyRoot from "./fragments/ProxyRoot"
 
 import Access from "./routes/Access"
 import Trade from "./routes/Trade"
-import Instructions from "./routes/public_route/Instructions"
-import TermsAndConditions from "./routes/public_route/TermsAndConditions"
+import Instructions from "./routes/public_routes/Instructions"
+import LicenseAgreement from "./routes/public_routes/License Agreement"
+import PropertyRecognitionAgreementAndUserCommitment from "./routes/public_routes/Property Recognition and user commitment"
+import PrivacyPolicy from "./routes/public_routes/Privacy Policy"
 import Deriv from "./routes/Deriv"
 import ProxyCleaner from "./fragments/ProxyCleaner"
 
@@ -21,6 +23,7 @@ import Register2 from "./routes/Register2"
 import Login from "./routes/Login"
 import ResetPassword1 from "./routes/ResetPassword1"
 import ResetPassword2 from "./routes/ResetPassword2"
+import PDF from "./routes/PDF"
 
 const Interactua = Home
 const Sorteos = Home
@@ -133,10 +136,20 @@ const routes: RouteObject[] = [
         index: true,
         element: <Public />
       },
+
       {
-        path: "terms_and_conditions",
-        element: <TermsAndConditions />
+        path: "license_agreement",
+        element: <LicenseAgreement />
       },
+      {
+        path: "property_recognition_agreement_and_user_commitment",
+        element: <PropertyRecognitionAgreementAndUserCommitment />
+      },
+      {
+        path: "privacy_policy",
+        element: <PrivacyPolicy />
+      },
+
       {
         path: "participa",
         element: <Interactua />
