@@ -61,7 +61,7 @@ export default () => {
       }
 
       if (!response.ok) {
-        setError("your email is not jet allowed to use the app.")
+        setError(_res.message)
         setTimeout(() => {
           navigate("/", { replace: true })
         }, 5000)
