@@ -92,7 +92,11 @@ export const Editables = () => {
       label: string
     }>
   ) => {
-    setEditables((s) => ({ ...s, actual_account: option?.value || 0 }))
+    setEditables((s) => ({
+      ...s,
+      actual_account: option?.value || 0,
+      currency: option?.label || "USD"
+    }))
     state.WebSockets.buyer?.close()
   }
 
