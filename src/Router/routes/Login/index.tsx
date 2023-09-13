@@ -155,6 +155,7 @@ export default () => {
           autoComplete="off"
           type="password"
           onChange={inputChange}
+          onKeyDown={(e) => e.key === "Enter" && registUser()}
           value={formData.password}
           className={inputStyle}
         />
