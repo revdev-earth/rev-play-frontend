@@ -36,9 +36,8 @@ export const authorization = () => {
 
 let min_amount = 0.35
 export const make_proposals = () => {
-  if (state.internal.amount < min_amount) {
+  if (state.internal.amount < min_amount)
     console.log(" > Case study amount :", state.internal.amount)
-  }
 
   const common_proposal = {
     subscribe: 1,

@@ -57,12 +57,18 @@ export const Editables = () => {
 
   useEffect(() => {
     if (!deriv) return
-    const optionsAcc = deriv.map((acc, i) => ({
+
+    const _optionsAcc = deriv.map((acc, i) => ({
       value: i,
       label: acc.cur
     }))
-    setEditables((s) => ({ ...s, actual_account: editables.actual_account }))
-    setOptionsAcc(optionsAcc)
+
+    setOptionsAcc(_optionsAcc)
+    setEditables((s) => ({
+      ...s,
+      actual_account: editables.actual_account,
+      currency: _optionsAcc[editables.actual_account].label
+    }))
     ws_buyer()
   }, [deriv])
 
