@@ -8,7 +8,6 @@ const purchases_slice = createSlice({
   name: "purchases",
   initialState: initial.purchases,
   reducers: {
-    //
     add_purchase: (state, { payload }: { payload: AddPurchaseRedux }) => {
       state.ids.push(payload.contract_id)
       state.items[payload.contract_id] = payload

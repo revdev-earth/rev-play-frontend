@@ -1,4 +1,4 @@
-// reducer con slices
+// slices reducer
 
 import { reducer as editables } from "+redux/slices/editables"
 import { reducer as info } from "+redux/slices/info"

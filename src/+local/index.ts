@@ -1,12 +1,6 @@
 import { Socket } from "socket.io-client"
 import type { Authorize, Candle, OHLC, Proposal } from "types"
 
-interface Compras {
-  start1?: number
-  start2?: number
-  tick_stream?: { tick: number; epoch: number }[]
-}
-
 export const state = {
   activeAccount: 0,
   deriv: [] as { acct: any; cur: any; token: any }[],
